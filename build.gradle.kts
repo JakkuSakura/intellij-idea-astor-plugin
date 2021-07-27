@@ -29,8 +29,12 @@ dependencies {
 // Read more: https://github.com/JetBrains/gradle-intellij-plugin
 intellij {
     pluginName.set(properties("pluginName"))
-    version.set(properties("platformVersion"))
-    localPath.set(properties("platformLocalPath"))
+
+    if (properties("platformVersion") != "null") {
+        version.set(properties("platformVersion"))
+    } else {
+        localPath.set(properties("platformLocalPath"))
+    }
     type.set(properties("platformType"))
     downloadSources.set(properties("platformDownloadSources").toBoolean())
     updateSinceUntilBuild.set(true)
