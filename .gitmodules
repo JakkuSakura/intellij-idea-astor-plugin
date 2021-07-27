@@ -1,0 +1,3 @@
+[submodule "astor"]
+	path = astor
+	url = https://github.com/bc2021-program-repair/astor
