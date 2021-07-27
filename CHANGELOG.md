@@ -6,3 +6,7 @@
 ### Added
 - Initialize project
 
+## [0.1.1]
+### Fixed
+- pluginUntilBuild does not include 2021.1.2
+
