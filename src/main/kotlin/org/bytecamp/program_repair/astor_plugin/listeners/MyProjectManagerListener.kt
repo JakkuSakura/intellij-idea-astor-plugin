@@ -1,9 +1,9 @@
-package org.jetbrains.plugins.template.listeners
+package org.bytecamp.program_repair.astor_plugin.listeners
 
 import com.intellij.openapi.components.service
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
-import org.jetbrains.plugins.template.services.MyProjectService
+import org.bytecamp.program_repair.astor_plugin.services.MyProjectService
 
 internal class MyProjectManagerListener : ProjectManagerListener {
 

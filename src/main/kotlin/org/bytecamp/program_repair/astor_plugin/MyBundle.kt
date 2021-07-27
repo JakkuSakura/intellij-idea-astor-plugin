@@ -1,4 +1,4 @@
-package org.jetbrains.plugins.template
+package org.bytecamp.program_repair.astor_plugin
 
 import com.intellij.AbstractBundle
 import org.jetbrains.annotations.NonNls
