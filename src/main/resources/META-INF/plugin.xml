@@ -1,7 +1,13 @@
 <idea-plugin>
-    <id>org.jetbrains.plugins.template</id>
+    <!-- 插件唯一id，不能和其他插件项目重复，所以推荐使用com.xxx.xxx的格式
+       插件不同版本之间不能更改，若没有指定，则与插件名称相同 -->
+    <id>com.bytedance.bytecamp2021.astor</id>
+    <!-- 插件名称，别人在官方插件库搜索你的插件时使用的名称 -->
     <name>Astor for IDEA</name>
     <vendor>ByteCamp SE Group B</vendor>
+
+    <!-- 插件的描述 -->
+    <description>Astor Embedded in IDEA, which is a automated software repair tool</description>
 
     <!-- Product and plugin compatibility requirements -->
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
@@ -10,10 +16,19 @@
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceImplementation="org.jetbrains.plugins.template.services.MyApplicationService"/>
         <projectService serviceImplementation="org.jetbrains.plugins.template.services.MyProjectService"/>
+        <themeProvider id="6a77d6f7-fa0f-4ccf-b323-6e48c02ffd7e" path="/null"/>
     </extensions>
 
     <applicationListeners>
         <listener class="org.jetbrains.plugins.template.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
+
+
+    <actions>
+        <action id="org.intellij.sdk.action.PopupDialogAction" class="org.intellij.sdk.action.PopupDialogAction"
+                text="etest" description="test">
+            <add-to-group group-id="BuildMenu" anchor="first"/>
+        </action>
+    </actions>
 </idea-plugin>
