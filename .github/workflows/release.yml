@@ -27,6 +27,9 @@ jobs:
         with:
           ref: ${{ github.event.release.tag_name }}
 
+      - name: Change IDE source
+        run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
+
       # Publish the plugin to the Marketplace
       - name: Publish Plugin
         env:
