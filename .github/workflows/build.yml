@@ -69,6 +69,10 @@ jobs:
           path: ~/.gradle/wrapper
           key: ${{ runner.os }}-gradle-wrapper-${{ hashFiles('**/gradle/wrapper/gradle-wrapper.properties') }}
 
+      #  Download and extract IDE
+      - name: Download and extract IDE
+        run: ./download_idea.sh
+
       # Run detekt, ktlint and tests
       - name: Run Linters and Test
         run: ./gradlew check
