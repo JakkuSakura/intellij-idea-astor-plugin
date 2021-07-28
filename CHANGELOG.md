@@ -3,6 +3,16 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+### Plans
+Wrap `ASTOR` as a language server or hack JRE to achieve provide JDK. https://github.com/JetBrains/gradle-intellij-plugin/issues/755 
+
+## [0.1.5]
+### Problems
+- no javax.tools.ToolProvider.getSystemJavaCompiler in JRE
+### Fixes
+- java_home error from astor
+### Added
+- full arguments
 ## [0.1.4]
 ### Added
 - Extract jreVersion

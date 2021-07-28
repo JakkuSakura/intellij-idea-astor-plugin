@@ -1,16 +1,12 @@
 package org.bytecamp.program_repair.astor_plugin.services
 
-import com.intellij.openapi.components.Service
-import com.intellij.openapi.components.service
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.roots.CompilerProjectExtension
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
 import fr.inria.main.evolution.AstorMain
-import java.io.IOException
-import kotlin.math.log
+import java.io.File
 
 
 object Keys {
@@ -31,7 +27,19 @@ class AstorConfig {
     var srcTest: String = ""
     var bin: String = ""
     var binTest: String = ""
+    private var normaized = false
+    private fun normalize() {
+        if (!normaized) {
+            val location = File(this.location)
+            src = File(src).relativeTo(location).path
+            srcTest = File(srcTest).relativeTo(location).path
+            bin = File(bin).relativeTo(location).path
+            binTest = File(binTest).relativeTo(location).path
+            normaized = true
+        }
+    }
     fun toArgs(): Array<String> {
+        normalize()
         return arrayOf(
             Keys.MODE,
             mode,
@@ -55,7 +63,6 @@ class AstorConfig {
     }
 }
 
-@Service
 class AstorProjectService(val project: Project) {
     val main: AstorMain = AstorMain()
     val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
@@ -71,8 +78,10 @@ class AstorProjectService(val project: Project) {
             } else if (file.children.isEmpty()) {
                 prefix
             } else {
-                if (file.children[0].name == "java") {
+                if (file.name == "java") {
                     getCommonPackage(file.children[0], prefix)
+                } else if (prefix.isEmpty()) {
+                    getCommonPackage(file.children[0], file.name)
                 } else {
                     getCommonPackage(file.children[0], prefix + "." + file.name)
                 }
@@ -113,14 +122,16 @@ class AstorProjectService(val project: Project) {
                 }
             }
         }
+
+        val base = project.projectFile!!.parent!!.parent.path
         when (getBuildSystem()) {
             "gradle" -> {
-                config.bin = project.projectFile!!.parent.path + "build/classes/java/main"
-                config.binTest = project.projectFile!!.parent.path + "build/classes/java/test"
+                config.bin = "$base/build/classes/java/main"
+                config.binTest = "$base/build/classes/java/test"
             }
             "maven" -> {
-                config.bin = project.projectFile!!.parent.path + "target/classes"
-                config.binTest = project.projectFile!!.parent.path + "target/test-classes"
+                config.bin = "$base/target/classes"
+                config.binTest = "$base/target/test-classes"
             }
             else -> {
                 Messages.showErrorDialog(project, "Does not support build systems other than gradle or maven", "Astor")
@@ -131,6 +142,7 @@ class AstorProjectService(val project: Project) {
 
     fun execute() {
         val config = getConfig()
+        logger.info("Executing with config $config")
         main.execute(config.toArgs())
     }
 }

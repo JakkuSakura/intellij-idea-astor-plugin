@@ -23,7 +23,7 @@ repositories {
     mavenLocal()
 }
 dependencies {
-    implementation("org.inria.sacha.automaticRepair:astor:1.1.0") {
+    implementation("org.inria.sacha.automaticRepair:astor:1.1.1") {
         exclude("org.slf4j")
     }
 }
