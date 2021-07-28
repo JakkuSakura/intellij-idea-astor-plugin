@@ -7,10 +7,6 @@
     <!-- https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
     <depends>com.intellij.modules.platform</depends>
 
-    <extensions defaultExtensionNs="com.intellij">
-        <projectService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.AstorProjectService"/>
-    </extensions>
-
     <projectListeners>
         <listener class="org.bytecamp.program_repair.astor_plugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>

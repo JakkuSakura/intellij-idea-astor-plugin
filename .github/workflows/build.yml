@@ -58,6 +58,9 @@ jobs:
       - name: Change IDE source
         run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
 
+      - name: Build astor
+        run: cd astor && mvn install -DskipTests=true --settings mvn-settings.xml
+
       # Cache Gradle dependencies
       - name: Setup Gradle Dependencies Cache
         uses: actions/cache@v2.1.6
@@ -107,6 +110,9 @@ jobs:
 
       - name: Change IDE source
         run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
+
+      - name: Build astor
+        run: cd astor && mvn install -DskipTests=true --settings mvn-settings.xml
 
       # Cache Gradle Dependencies
       - name: Setup Gradle Dependencies Cache
@@ -174,6 +180,9 @@ jobs:
       - name: Change IDE source
         run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
 
+      - name: Build astor
+        run: cd astor && mvn install -DskipTests=true --settings mvn-settings.xml
+
       # Cache Gradle Dependencies
       - name: Setup Gradle Dependencies Cache
         uses: actions/cache@v2.1.6
@@ -225,6 +234,9 @@ jobs:
 
       - name: Change IDE source
         run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
+
+      - name: Build astor
+        run: cd astor && mvn install -DskipTests=true --settings mvn-settings.xml
 
       # Remove old release drafts by using the curl request for the available releases with draft flag
       - name: Remove Old Release Drafts
