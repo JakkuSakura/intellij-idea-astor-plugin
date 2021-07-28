@@ -14,7 +14,11 @@
     <actions>
         <group id="astor_plugin.AstorAction" text="Astor" description="Analyze with Astor">
             <add-to-group group-id="MainMenu" anchor="last" />
-            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorHelloAction" id="astor_plugin.AstorHelloAction" text="Say Hello"/>
+            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorPrintArgumentAction" id="astor_plugin.AstorPrintArgumentAction" text="Print Arguments"/>
         </group>
     </actions>
+    <depends>com.intellij.java</depends>
+    <depends>com.intellij.gradle</depends>
+    <depends>org.jetbrains.idea.maven</depends>
+
 </idea-plugin>

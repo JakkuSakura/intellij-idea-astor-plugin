@@ -90,9 +90,12 @@ tasks {
     runPluginVerifier {
         ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
     }
-
     runIde {
-        jbrVersion.set("8u202b1483.24")
+        jbrVersion.set(properties("jreVersion"))
+        autoReloadPlugins.set(true)
+    }
+    buildSearchableOptions {
+        jbrVersion.set(properties("jreVersion"))
     }
 
     publishPlugin {

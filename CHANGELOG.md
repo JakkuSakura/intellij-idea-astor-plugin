@@ -3,6 +3,12 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.1.4]
+### Added
+- Extract jreVersion
+- Autodetect gradle/maven and fill in arguments for astor
+- Dependencies on core plugins
+
 ## [0.1.3]
 ### Fixed
 - Chose a proper set of IDEA and JDK
