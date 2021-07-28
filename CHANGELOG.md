@@ -3,6 +3,13 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.1.3]
+### Fixed
+- Chose a proper set of IDEA and JDK
+- Download proper source in download_idea.sh
+
+### Added
+- Read basic config from IDEA
 
 ## [0.1.2]
 ### Fixed
