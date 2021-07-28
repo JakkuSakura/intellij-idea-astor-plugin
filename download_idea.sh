@@ -1,5 +1,11 @@
 #!/bin/sh
 mkdir -p downloaded
-wget -q -nc https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/2021.2/ideaIC-2021.2.zip -O downloaded/ideaIC-2021.2.zip
-wget -q -nc https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/ideaIC/2021.2/ideaIC-2021.2-sources.jar -O downloaded/ideaIC-2021.2-sources.jar
-unzip -n downloaded/ideaIC-2021.2.zip -d downloaded/ideaIC-2021.2
+
+platform=ideaIC
+version=2020.2.4
+fullname=$platform-$version
+echo picked $fullname as IDE
+wget -nc https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/$platform/$version/$fullname.zip -O downloaded/$fullname.zip
+wget -nc https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/$platform/$version/$fullname-sources.jar -O downloaded/$fullname.zip
+unzip -n downloaded/$fullname.zip -d downloaded/$fullname
+
