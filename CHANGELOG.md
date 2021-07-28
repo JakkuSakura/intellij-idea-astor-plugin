@@ -3,8 +3,12 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+
+## [0.1.2]
 ### Fixed
 - GitHub action
+### Added
+- Added Astor menu item
 
 ## [0.1.1]
 ### Fixed

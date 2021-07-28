@@ -1,6 +1,6 @@
 <idea-plugin>
     <id>org.bytecamp.program_repair.astor_plugin</id>
-    <name>Astor Plugin</name>
+    <name>Astor</name>
     <vendor>ByteCamp Program Repair</vendor>
 
     <!-- Product and plugin compatibility requirements -->
@@ -8,12 +8,17 @@
     <depends>com.intellij.modules.platform</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <applicationService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.MyApplicationService"/>
-        <projectService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.MyProjectService"/>
+        <projectService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.AstorProjectService"/>
     </extensions>
 
-    <applicationListeners>
+    <projectListeners>
         <listener class="org.bytecamp.program_repair.astor_plugin.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
-    </applicationListeners>
+    </projectListeners>
+    <actions>
+        <group id="astor_plugin.AstorAction" text="Astor" description="Analyze with Astor">
+            <add-to-group group-id="MainMenu" anchor="last" />
+            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorHelloAction" id="astor_plugin.AstorHelloAction" text="Say Hello"/>
+        </group>
+    </actions>
 </idea-plugin>
