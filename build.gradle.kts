@@ -7,7 +7,7 @@ plugins {
     // Java support
     id("java")
     // Kotlin support
-    id("org.jetbrains.kotlin.jvm") version "1.3.72"
+    id("org.jetbrains.kotlin.jvm") version "1.5.10"
     // gradle-intellij-plugin - read more: https://github.com/JetBrains/gradle-intellij-plugin
     id("org.jetbrains.intellij") version "1.1.2"
     // gradle-changelog-plugin - read more: https://github.com/JetBrains/gradle-changelog-plugin
@@ -23,7 +23,7 @@ repositories {
     mavenLocal()
 }
 dependencies {
-    implementation("org.inria.sacha.automaticRepair:astor:1.1.1") {
+    implementation("org.inria.sacha.automaticRepair:astor:1.1.2") {
         exclude("org.slf4j")
     }
 }

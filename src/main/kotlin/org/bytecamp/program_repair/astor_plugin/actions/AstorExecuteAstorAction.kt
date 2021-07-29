@@ -9,6 +9,8 @@ import org.bytecamp.program_repair.astor_plugin.services.AstorProjectService
 class AstorExecuteAstorAction: AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val service = e.project?.service<AstorProjectService>()!!
-        service.execute()
+        Messages.showMessageDialog(e.project, "Executing astor with arguments \n" + service.getConfig().toArgs().joinToString("\n"), "Astor", null)
+        val result = service.execute()
+        Messages.showMessageDialog(e.project, "Executed astor: $result", "Astor", null)
     }
 }

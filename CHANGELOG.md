@@ -3,8 +3,10 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
-### Plans
-Wrap `ASTOR` as a language server or hack JRE to achieve provide JDK. https://github.com/JetBrains/gradle-intellij-plugin/issues/755 
+## [0.1.6]
+### Changes
+- use gRPC
+- use latest IDEA and java 11
 
 ## [0.1.5]
 ### Problems

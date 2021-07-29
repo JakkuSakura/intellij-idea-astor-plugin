@@ -2,7 +2,7 @@
 mkdir -p downloaded
 
 platform=ideaIC
-version=2020.2.4
+version=2021.2
 fullname=$platform-$version
 echo picked $fullname as IDE
 wget -nc https://www.jetbrains.com/intellij-repository/releases/com/jetbrains/intellij/idea/$platform/$version/$fullname.zip -O downloaded/$fullname.zip

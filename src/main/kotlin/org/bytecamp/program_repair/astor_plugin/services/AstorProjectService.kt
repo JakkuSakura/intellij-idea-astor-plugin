@@ -1,11 +1,16 @@
 package org.bytecamp.program_repair.astor_plugin.services
 
+import com.intellij.openapi.Disposable
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.vfs.VirtualFile
-import fr.inria.main.evolution.AstorMain
+import io.grpc.ManagedChannel
+import io.grpc.ManagedChannelBuilder
+import org.bytecamp.program_repair.astor.grpc.AstorLanguageServerGrpc
+import org.bytecamp.program_repair.astor.grpc.ExecuteRequest
+import org.bytecamp.program_repair.astor.grpc.ExecuteResponse
 import java.io.File
 
 
@@ -38,6 +43,7 @@ class AstorConfig {
             normaized = true
         }
     }
+
     fun toArgs(): Array<String> {
         normalize()
         return arrayOf(
@@ -63,9 +69,14 @@ class AstorConfig {
     }
 }
 
-class AstorProjectService(val project: Project) {
-    val main: AstorMain = AstorMain()
-    val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
+class AstorProjectService(val project: Project) : Disposable {
+    private val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
+    private val channel: ManagedChannel = ManagedChannelBuilder.forAddress("localhost", 10000)
+        .usePlaintext()
+        .build()
+
+    val grpcStub: AstorLanguageServerGrpc.AstorLanguageServerBlockingStub =
+        AstorLanguageServerGrpc.newBlockingStub(channel)
 
     fun getCommonPackage(file: VirtualFile, prefix: String): String {
         return if (file.isDirectory) {
@@ -90,9 +101,10 @@ class AstorProjectService(val project: Project) {
             prefix
         }
     }
+
     fun getBuildSystem(): String {
         val base = project.projectFile?.parent?.parent
-        val system =  if (base?.findChild("build.gradle") != null || base?.findChild("build.gradle.kts") != null)  {
+        val system = if (base?.findChild("build.gradle") != null || base?.findChild("build.gradle.kts") != null) {
             "gradle"
         } else if (base?.findChild("pom.xml") != null) {
             "maven"
@@ -140,9 +152,18 @@ class AstorProjectService(val project: Project) {
         return config
     }
 
-    fun execute() {
+    fun execute(): String {
         val config = getConfig()
-        logger.info("Executing with config $config")
-        main.execute(config.toArgs())
+        val args = ExecuteRequest.newBuilder()
+            .addAllArgs(config.toArgs().asIterable())
+            .build()
+        val helloResponse: ExecuteResponse = grpcStub.execute(
+            args
+        )
+        return helloResponse.arg.toString()
+    }
+
+    override fun dispose() {
+        TODO("Not yet implemented")
     }
 }
