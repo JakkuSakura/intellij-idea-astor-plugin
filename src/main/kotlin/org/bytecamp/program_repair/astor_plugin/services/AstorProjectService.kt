@@ -1,6 +1,5 @@
 package org.bytecamp.program_repair.astor_plugin.services
 
-import com.intellij.openapi.Disposable
 import com.intellij.openapi.module.ModuleManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.roots.ModuleRootManager
@@ -11,7 +10,9 @@ import io.grpc.ManagedChannelBuilder
 import org.bytecamp.program_repair.astor.grpc.AstorLanguageServerGrpc
 import org.bytecamp.program_repair.astor.grpc.ExecuteRequest
 import org.bytecamp.program_repair.astor.grpc.ExecuteResponse
+import org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory
 import java.io.File
+import java.lang.RuntimeException
 
 
 object Keys {
@@ -69,7 +70,7 @@ class AstorConfig {
     }
 }
 
-class AstorProjectService(val project: Project) : Disposable {
+class AstorProjectService(val project: Project) {
     private val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
     private val channel: ManagedChannel = ManagedChannelBuilder.forAddress("localhost", 10000)
         .usePlaintext()
@@ -79,6 +80,7 @@ class AstorProjectService(val project: Project) : Disposable {
         AstorLanguageServerGrpc.newBlockingStub(channel)
 
     fun getCommonPackage(file: VirtualFile, prefix: String): String {
+
         return if (file.isDirectory) {
             if (file.children.size > 1) {
                 if (prefix.isEmpty()) {
@@ -157,13 +159,25 @@ class AstorProjectService(val project: Project) : Disposable {
         val args = ExecuteRequest.newBuilder()
             .addAllArgs(config.toArgs().asIterable())
             .build()
-        val helloResponse: ExecuteResponse = grpcStub.execute(
-            args
-        )
-        return helloResponse.arg.toString()
+        val result = StringBuilder()
+        val window = AstorWindowFactory.getAstorOutput(project)!!
+        window.appendText("Running with args $config!\n")
+        for (resp in grpcStub.execute(args)) {
+            when (resp.frameType) {
+                ExecuteResponse.FrameType.RESULT -> {
+                    result.append(resp.arg)
+                }
+                ExecuteResponse.FrameType.STDOUT -> {
+                    window.appendText(resp.arg)
+                }
+                else -> {
+                    throw RuntimeException("Unreachable")
+                }
+            }
+        }
+        window.appendText("Result $result\n")
+
+        return result.toString()
     }
 
-    override fun dispose() {
-        TODO("Not yet implemented")
-    }
 }

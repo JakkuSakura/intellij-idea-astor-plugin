@@ -3,6 +3,11 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.1.7]
+### Added
+- Text panel
+- Unfinished stdout streaming
+
 ## [0.1.6]
 ### Changes
 - use gRPC
