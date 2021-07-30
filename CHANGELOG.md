@@ -3,14 +3,25 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.2.1]
+### Added
+- Show diff
+
+### Problems
+- Comments missing from repaired code
+- Unnecessary full class name
+- Unreserved code format
+
+
 ## [0.2.0]
 ### Changes
 - Icon for tool window 
 - Reformatting patches
 - Various bugfixes
+
 ## [0.1.8]
 ### Added
-- Logging forawrding
+- Logging forwarding
 - Multithreading
 - Separate gRPC without direct dependency on astor
 - Load result config
@@ -32,6 +43,7 @@
 - java_home error from astor
 ### Added
 - full arguments
+
 ## [0.1.4]
 ### Added
 - Extract jreVersion

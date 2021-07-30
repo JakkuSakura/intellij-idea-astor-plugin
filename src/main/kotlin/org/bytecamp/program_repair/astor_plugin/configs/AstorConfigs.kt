@@ -131,6 +131,9 @@ data class PatchHunk(
     val INGREDIENT_PARENT: String = ""
 
 ) {
+    fun getPath(): String {
+        return PATH.replace("\\/", "/")
+    }
     fun getModifiedFilePath(): String {
         return MODIFIED_FILE_PATH.replace("\\/", "/")
     }
