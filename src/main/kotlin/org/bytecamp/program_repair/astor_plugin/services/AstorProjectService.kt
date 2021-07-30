@@ -11,10 +11,8 @@ import org.bytecamp.program_repair.astor.grpc.AstorLanguageServerGrpc
 import org.bytecamp.program_repair.astor.grpc.ExecuteRequest
 import org.bytecamp.program_repair.astor.grpc.ExecuteResponse
 import org.bytecamp.program_repair.astor_plugin.configs.AstorInputConfig
-import org.bytecamp.program_repair.astor_plugin.configs.AstorOutputConfig
 import org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory
 import java.io.File
-import java.lang.RuntimeException
 
 
 class AstorProjectService(val project: Project) {
@@ -25,7 +23,7 @@ class AstorProjectService(val project: Project) {
 
     private val grpcStub: AstorLanguageServerGrpc.AstorLanguageServerBlockingStub =
         AstorLanguageServerGrpc.newBlockingStub(channel)
-    private val window = AstorWindowFactory.getAstorOutput(project)!!
+    val window = AstorWindowFactory.getAstorOutput(project)!!
 
     fun getCommonPackage(file: VirtualFile, prefix: String): String {
 
@@ -125,17 +123,6 @@ class AstorProjectService(val project: Project) {
             }
         }
         window.appendText("Result: $result\n")
-        val outPath = config.out + File.separator + "AstorMain-" + config.projectName
-        parseOutput(outPath)
         return result.toString()
-    }
-
-    fun parseOutput(path: String) {
-        logger.info("Output path is $path")
-        val json = File(path + File.separator + "astor_output.json")
-        val gson = com.google.gson.Gson()
-        val config = gson.fromJson(json.readText(Charsets.UTF_8), AstorOutputConfig::class.java)
-        val configJson = gson.toJson(config)
-        window.appendText("Got detailed config: $configJson")
     }
 }

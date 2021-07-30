@@ -45,8 +45,8 @@ intellij {
     downloadSources.set(properties("platformDownloadSources").toBoolean())
     updateSinceUntilBuild.set(true)
 
-    // Plugin Dependencies. Uses `platformPlugins` property from the gradle.properties file.
-    plugins.set(properties("platformPlugins").split(',').map(String::trim).filter(String::isNotEmpty))
+
+    plugins.set(listOf("java"))
 }
 
 // Configure gradle-changelog-plugin plugin.

@@ -3,6 +3,11 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.2.0]
+### Changes
+- Icon for tool window 
+- Reformatting patches
+- Various bugfixes
 ## [0.1.8]
 ### Added
 - Logging forawrding

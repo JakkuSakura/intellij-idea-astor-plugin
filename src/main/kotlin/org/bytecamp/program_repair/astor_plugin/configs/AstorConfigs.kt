@@ -61,6 +61,16 @@ data class AstorInputConfig(
     override fun toString(): String {
         return toArgs().joinToString(" ")
     }
+
+    fun getOutPath(): String {
+        return out + File.separator + "AstorMain-" + projectName
+    }
+
+    fun getOutConfig(): AstorOutputConfig {
+        val json = File(getOutPath() + File.separator + "astor_output.json")
+        val gson = com.google.gson.Gson()
+        return gson.fromJson(json.readText(Charsets.UTF_8), AstorOutputConfig::class.java)
+    }
 }
 
 /*
@@ -119,7 +129,12 @@ data class PatchHunk(
     val PATCH_HUNK_TYPE: String = "",
     val INGREDIENT_SCOPE: String = "",
     val INGREDIENT_PARENT: String = ""
-)
+
+) {
+    fun getModifiedFilePath(): String {
+        return MODIFIED_FILE_PATH.replace("\\/", "/")
+    }
+}
 
 @Suppress("PropertyName")
 data class AstorGeneral(
