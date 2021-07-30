@@ -30,9 +30,6 @@ jobs:
       - name: Change IDE source
         run: sed 's/#\(platformVersion\)/\1/;s/platformLocalPath/#\0/' -i gradle.properties
 
-      - name: Build astor
-        run: cd astor && mvn install -DskipTests=true --settings mvn-settings.xml
-
       # Publish the plugin to the Marketplace
       - name: Publish Plugin
         env:

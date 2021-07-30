@@ -3,6 +3,13 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.1.8]
+### Added
+- Logging forawrding
+- Multithreading
+- Separate gRPC without direct dependency on astor
+- Load result config
+
 ## [0.1.7]
 ### Added
 - Text panel
@@ -11,7 +18,7 @@
 ## [0.1.6]
 ### Changes
 - use gRPC
-- use latest IDEA and java 11
+- use the latest IDEA and java 11
 
 ## [0.1.5]
 ### Problems

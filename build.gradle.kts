@@ -23,9 +23,11 @@ repositories {
     mavenLocal()
 }
 dependencies {
-    implementation("org.inria.sacha.automaticRepair:astor:1.1.3") {
-        exclude("org.slf4j")
-    }
+    implementation("com.google.code.gson:gson:2.8.7")
+
+
+    testImplementation(platform("org.junit:junit-bom:5.7.2"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
 
@@ -53,7 +55,6 @@ changelog {
     version = properties("pluginVersion")
     groups = emptyList()
 }
-
 
 tasks {
     // Set the compatibility versions to 1.8
@@ -91,13 +92,20 @@ tasks {
         ideVersions.set(properties("pluginVerifierIdeVersions").split(',').map(String::trim).filter(String::isNotEmpty))
     }
     runIde {
-        jbrVersion.set(properties("jreVersion"))
+        if (properties("jreVersion") != "null")
+            jbrVersion.set(properties("jreVersion"))
         autoReloadPlugins.set(true)
     }
     buildSearchableOptions {
-        jbrVersion.set(properties("jreVersion"))
+        if (properties("jreVersion") != "null")
+            jbrVersion.set(properties("jreVersion"))
     }
-
+    test {
+        useJUnitPlatform()
+        testLogging {
+            events("passed", "skipped", "failed")
+        }
+    }
     publishPlugin {
         dependsOn("patchChangelog")
         token.set(System.getenv("PUBLISH_TOKEN"))

@@ -10,65 +10,12 @@ import io.grpc.ManagedChannelBuilder
 import org.bytecamp.program_repair.astor.grpc.AstorLanguageServerGrpc
 import org.bytecamp.program_repair.astor.grpc.ExecuteRequest
 import org.bytecamp.program_repair.astor.grpc.ExecuteResponse
+import org.bytecamp.program_repair.astor_plugin.configs.AstorInputConfig
+import org.bytecamp.program_repair.astor_plugin.configs.AstorOutputConfig
 import org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory
 import java.io.File
 import java.lang.RuntimeException
 
-
-object Keys {
-    const val MODE = "-mode"
-    const val LOCATION = "-location"
-    const val PACKAGE = "-package"
-    const val SRC = "-srcjavafolder"
-    const val SRC_TEST = "-srctestfolder"
-    const val BIN = "-binjavafolder"
-    const val BIN_TEST = "-bintestfolder"
-}
-
-class AstorConfig {
-    var mode: String = "jGenProg"
-    var pkg: String = ""
-    var location: String = ""
-    var src: String = ""
-    var srcTest: String = ""
-    var bin: String = ""
-    var binTest: String = ""
-    private var normaized = false
-    private fun normalize() {
-        if (!normaized) {
-            val location = File(this.location)
-            src = File(src).relativeTo(location).path
-            srcTest = File(srcTest).relativeTo(location).path
-            bin = File(bin).relativeTo(location).path
-            binTest = File(binTest).relativeTo(location).path
-            normaized = true
-        }
-    }
-
-    fun toArgs(): Array<String> {
-        normalize()
-        return arrayOf(
-            Keys.MODE,
-            mode,
-            Keys.PACKAGE,
-            pkg,
-            Keys.LOCATION,
-            location,
-            Keys.SRC,
-            src,
-            Keys.SRC_TEST,
-            srcTest,
-            Keys.BIN,
-            bin,
-            Keys.BIN_TEST,
-            binTest
-        )
-    }
-
-    override fun toString(): String {
-        return toArgs().joinToString(" ")
-    }
-}
 
 class AstorProjectService(val project: Project) {
     private val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
@@ -76,8 +23,9 @@ class AstorProjectService(val project: Project) {
         .usePlaintext()
         .build()
 
-    val grpcStub: AstorLanguageServerGrpc.AstorLanguageServerBlockingStub =
+    private val grpcStub: AstorLanguageServerGrpc.AstorLanguageServerBlockingStub =
         AstorLanguageServerGrpc.newBlockingStub(channel)
+    private val window = AstorWindowFactory.getAstorOutput(project)!!
 
     fun getCommonPackage(file: VirtualFile, prefix: String): String {
 
@@ -117,15 +65,14 @@ class AstorProjectService(val project: Project) {
         return system
     }
 
-    fun getConfig(): AstorConfig {
-        val config = AstorConfig()
+    fun getConfig(): AstorInputConfig {
+        val config = AstorInputConfig()
         config.location = project.basePath!!
+        config.projectName = project.basePath?.split(File.separator)?.last()!!
         val modules = ModuleManager.getInstance(project).modules
 
         for (module in modules) {
-            logger.info("Module %s path %s".format(module.name, module.moduleFilePath))
             for (srcRoot in ModuleRootManager.getInstance(module).sourceRoots) {
-                logger.info("Source root " + srcRoot.path)
                 if (srcRoot.name == "java") {
                     if (srcRoot.path.contains("main")) {
                         config.src = srcRoot.path
@@ -142,10 +89,12 @@ class AstorProjectService(val project: Project) {
             "gradle" -> {
                 config.bin = "$base/build/classes/java/main"
                 config.binTest = "$base/build/classes/java/test"
+                config.out = "$base/build/astor"
             }
             "maven" -> {
                 config.bin = "$base/target/classes"
                 config.binTest = "$base/target/test-classes"
+                config.out = "$base/target/astor"
             }
             else -> {
                 Messages.showErrorDialog(project, "Does not support build systems other than gradle or maven", "Astor")
@@ -160,8 +109,8 @@ class AstorProjectService(val project: Project) {
             .addAllArgs(config.toArgs().asIterable())
             .build()
         val result = StringBuilder()
-        val window = AstorWindowFactory.getAstorOutput(project)!!
-        window.appendText("Running with args $config!\n")
+        window.appendText("\nRequesting with args $config\n")
+
         for (resp in grpcStub.execute(args)) {
             when (resp.frameType) {
                 ExecuteResponse.FrameType.RESULT -> {
@@ -175,9 +124,18 @@ class AstorProjectService(val project: Project) {
                 }
             }
         }
-        window.appendText("Result $result\n")
-
+        window.appendText("Result: $result\n")
+        val outPath = config.out + File.separator + "AstorMain-" + config.projectName
+        parseOutput(outPath)
         return result.toString()
     }
 
+    fun parseOutput(path: String) {
+        logger.info("Output path is $path")
+        val json = File(path + File.separator + "astor_output.json")
+        val gson = com.google.gson.Gson()
+        val config = gson.fromJson(json.readText(Charsets.UTF_8), AstorOutputConfig::class.java)
+        val configJson = gson.toJson(config)
+        window.appendText("Got detailed config: $configJson")
+    }
 }

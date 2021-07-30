@@ -11,11 +11,13 @@ class AstorOutput: JPanel() {
 
     init {
         layout = BorderLayout()
+        text.isEditable = false
         super.add(jsp)
     }
     fun appendText(str: String) {
         val document = text.document
         document.insertString(document.length, str, null)
+        text.caretPosition = document.length
     }
 
 }
