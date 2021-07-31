@@ -3,6 +3,12 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.2.3]
+### Changes
+- Use PSI to reformat code
+- Show diff after astor
+- Small bugfixes
+
 ## [0.2.2]
 ### Added
 - Code references builder and tests

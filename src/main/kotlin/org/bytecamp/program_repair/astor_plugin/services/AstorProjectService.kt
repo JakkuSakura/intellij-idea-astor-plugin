@@ -16,7 +16,7 @@ import java.io.File
 
 
 class AstorProjectService(val project: Project) {
-    private val logger = com.intellij.openapi.diagnostic.Logger.getInstance("AstorProjectService")
+    private val logger = com.intellij.openapi.diagnostic.Logger.getInstance(AstorProjectService::class.java)
     private val channel: ManagedChannel = ManagedChannelBuilder.forAddress("localhost", 10000)
         .usePlaintext()
         .build()
