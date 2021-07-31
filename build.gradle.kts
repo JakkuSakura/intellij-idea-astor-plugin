@@ -27,7 +27,8 @@ dependencies {
 
 
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
+
 }
 
 

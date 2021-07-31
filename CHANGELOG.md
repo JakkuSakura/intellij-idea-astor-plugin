@@ -3,6 +3,10 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.2.2]
+### Added
+- Code references builder and tests
+
 ## [0.2.1]
 ### Added
 - Show diff

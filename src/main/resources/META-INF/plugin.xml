@@ -9,15 +9,15 @@
 
 
     <extensions defaultExtensionNs="com.intellij">
-<!--        <applicationService serviceImplementation="org.jetbrains.plugins.template.services.MyApplicationService"/>-->
         <projectService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.AstorProjectService"/>
         <toolWindow id="Astor" anchor="bottom" icon="AllIcons.Actions.ShowHiddens" factoryClass="org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory" />
     </extensions>
 
     <projectListeners>
     </projectListeners>
+
     <actions>
-        <group id="AstorAction" text="Astor" description="Analyze with Astor">
+        <group id="AstorAction" text="Astor" description="Analyze with Astor" >
             <add-to-group group-id="MainMenu" anchor="last" />
             <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorPrintArgumentAction" id="AstorPrintArgumentAction" text="Print Arguments"/>
             <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorExecuteAstorAction" id="AstorExecuteAstorAction" text="Execute Astor"/>

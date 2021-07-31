@@ -4,13 +4,9 @@ import com.intellij.lang.java.JavaLanguage
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.components.service
-import com.intellij.openapi.vcs.FilePath
 import com.intellij.openapi.vcs.changes.Change
 import com.intellij.openapi.vcs.changes.CurrentContentRevision
 import com.intellij.openapi.vcs.changes.actions.diff.ShowDiffAction
-import com.intellij.openapi.vcs.impl.VcsVirtualFileContentRevision
-import com.intellij.openapi.vcs.vfs.VcsVirtualFile
-import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiFileFactory
 import com.intellij.vcsUtil.VcsUtil
 import org.bytecamp.program_repair.astor_plugin.code.ReformatCode
