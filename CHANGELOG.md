@@ -3,6 +3,10 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.2.4]
+### Changes
+- Better logging
+
 ## [0.2.3]
 ### Changes
 - Use PSI to reformat code

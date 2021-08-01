@@ -102,6 +102,7 @@ class AstorProjectService(val project: Project) {
     }
 
     fun execute(): String {
+        window.clear()
         val config = getConfig()
         val args = ExecuteRequest.newBuilder()
             .addAllArgs(config.toArgs().asIterable())
