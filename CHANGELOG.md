@@ -3,6 +3,10 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.0]
+- Removed astor submodule 
+- Use new backend
+- Bugfixes
 ## [0.2.4]
 ### Changes
 - Better logging

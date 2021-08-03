@@ -23,6 +23,7 @@ The code to be analyzed should be targeting Java 1.8
 
 
 ### TODO
-- Boots Astor backend ad hoc with jdk 1.8
 - Finer controls over which algorithm to use
 - Speed up analysis progress
+- Also show failed fixes
+- maven/gradle test before analysis

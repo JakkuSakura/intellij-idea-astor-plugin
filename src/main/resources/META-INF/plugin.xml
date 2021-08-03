@@ -15,13 +15,16 @@
 
     <projectListeners>
     </projectListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <notificationGroup id="AstorShowDiffNotificationGroup" displayType="BALLOON" key="notification.group.astor_diff"/>
+        <notificationGroup id="AstorDoneNotificationGroup" displayType="BALLOON" key="notification.group.astor_done"/>
+    </extensions>
 
     <actions>
         <group id="AstorAction" text="Astor" description="Analyze with Astor" >
             <add-to-group group-id="MainMenu" anchor="last" />
-            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorPrintArgumentAction" id="AstorPrintArgumentAction" text="Print Arguments"/>
             <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorExecuteAstorAction" id="AstorExecuteAstorAction" text="Execute Astor"/>
-            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorDiffAction" id="AstorShowDiffAction" text="Show Diff"/>
+            <action class="org.bytecamp.program_repair.astor_plugin.actions.AstorShowDiffAction" id="AstorPrintArgumentAction" text="Show diff"/>
         </group>
     </actions>
     <depends>com.intellij.modules.java</depends>

@@ -11,14 +11,18 @@ import com.intellij.openapi.ui.Messages
 import org.bytecamp.program_repair.astor_plugin.services.AstorProjectService
 import kotlin.concurrent.thread
 
-class AstorExecuteAstorAction: AnAction() {
+class AstorExecuteAstorAction : AnAction() {
+
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project!!
         val service = project.service<AstorProjectService>()
         thread {
-            service.execute()
-            runWriteCommandAction(project) {
-                AstorDiff.showDiff(project)
+            val patches = service.execute()
+            if (patches != null) {
+                runWriteCommandAction(project) {
+                    AstorDiff.showDiff(project, patches)
+                }
+
             }
         }
     }
