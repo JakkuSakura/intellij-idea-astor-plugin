@@ -20,6 +20,7 @@ private static final long serialVersionUID = 0L;
     location_ = "";
     project_ = "";
     algorithm_ = "";
+    content_ = com.google.protobuf.ByteString.EMPTY;
   }
 
   @Override
@@ -76,6 +77,11 @@ private static final long serialVersionUID = 0L;
             algorithm_ = s;
             break;
           }
+          case 42: {
+
+            content_ = input.readBytes();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -121,6 +127,10 @@ private static final long serialVersionUID = 0L;
      * <code>GIT = 1;</code>
      */
     GIT(1),
+    /**
+     * <code>ZIP = 2;</code>
+     */
+    ZIP(2),
     UNRECOGNIZED(-1),
     ;
 
@@ -132,6 +142,10 @@ private static final long serialVersionUID = 0L;
      * <code>GIT = 1;</code>
      */
     public static final int GIT_VALUE = 1;
+    /**
+     * <code>ZIP = 2;</code>
+     */
+    public static final int ZIP_VALUE = 2;
 
 
     public final int getNumber() {
@@ -160,6 +174,7 @@ private static final long serialVersionUID = 0L;
       switch (value) {
         case 0: return PATH;
         case 1: return GIT;
+        case 2: return ZIP;
         default: return null;
       }
     }
@@ -349,6 +364,17 @@ private static final long serialVersionUID = 0L;
     }
   }
 
+  public static final int CONTENT_FIELD_NUMBER = 5;
+  private com.google.protobuf.ByteString content_;
+  /**
+   * <code>bytes content = 5;</code>
+   * @return The content.
+   */
+  @Override
+  public com.google.protobuf.ByteString getContent() {
+    return content_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @Override
   public final boolean isInitialized() {
@@ -375,6 +401,9 @@ private static final long serialVersionUID = 0L;
     if (!getAlgorithmBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 4, algorithm_);
     }
+    if (!content_.isEmpty()) {
+      output.writeBytes(5, content_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -396,6 +425,10 @@ private static final long serialVersionUID = 0L;
     }
     if (!getAlgorithmBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, algorithm_);
+    }
+    if (!content_.isEmpty()) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBytesSize(5, content_);
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -419,6 +452,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getProject())) return false;
     if (!getAlgorithm()
         .equals(other.getAlgorithm())) return false;
+    if (!getContent()
+        .equals(other.getContent())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -438,6 +473,8 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getProject().hashCode();
     hash = (37 * hash) + ALGORITHM_FIELD_NUMBER;
     hash = (53 * hash) + getAlgorithm().hashCode();
+    hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+    hash = (53 * hash) + getContent().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -579,6 +616,8 @@ private static final long serialVersionUID = 0L;
 
       algorithm_ = "";
 
+      content_ = com.google.protobuf.ByteString.EMPTY;
+
       return this;
     }
 
@@ -609,6 +648,7 @@ private static final long serialVersionUID = 0L;
       result.location_ = location_;
       result.project_ = project_;
       result.algorithm_ = algorithm_;
+      result.content_ = content_;
       onBuilt();
       return result;
     }
@@ -671,6 +711,9 @@ private static final long serialVersionUID = 0L;
       if (!other.getAlgorithm().isEmpty()) {
         algorithm_ = other.algorithm_;
         onChanged();
+      }
+      if (other.getContent() != com.google.protobuf.ByteString.EMPTY) {
+        setContent(other.getContent());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -979,6 +1022,40 @@ private static final long serialVersionUID = 0L;
   checkByteStringIsUtf8(value);
       
       algorithm_ = value;
+      onChanged();
+      return this;
+    }
+
+    private com.google.protobuf.ByteString content_ = com.google.protobuf.ByteString.EMPTY;
+    /**
+     * <code>bytes content = 5;</code>
+     * @return The content.
+     */
+    @Override
+    public com.google.protobuf.ByteString getContent() {
+      return content_;
+    }
+    /**
+     * <code>bytes content = 5;</code>
+     * @param value The content to set.
+     * @return This builder for chaining.
+     */
+    public Builder setContent(com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      content_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bytes content = 5;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearContent() {
+      
+      content_ = getDefaultInstance().getContent();
       onChanged();
       return this;
     }

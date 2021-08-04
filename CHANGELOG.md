@@ -3,6 +3,11 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.5]
+- Zip project
+- Disable line wrap
+- Colored logging level
+
 ## [0.3.4]
 - Simplify cleaning code step
 

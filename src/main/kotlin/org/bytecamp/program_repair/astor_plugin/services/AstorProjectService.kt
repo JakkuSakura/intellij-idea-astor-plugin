@@ -1,17 +1,21 @@
 package org.bytecamp.program_repair.astor_plugin.services
 
+import com.google.protobuf.ByteString
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.Project
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
 import org.bytecamp.program_repair.astor_plugin.configs.AppSettingsState
+import org.bytecamp.program_repair.astor_plugin.utils.ZipManager
 import org.bytecamp.program_repair.astor_plugin.window.AstorNotification
 import org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory
 import org.bytecamp.program_repair.backend.grpc.RepairServerGrpc
 import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
+import java.io.ByteArrayOutputStream
+import java.io.File
 
 
 class AstorProjectService(val project: Project) {
@@ -19,11 +23,21 @@ class AstorProjectService(val project: Project) {
 
     var lastResults: List<RepairTaskResult>? = null
     val window = AstorWindowFactory.getAstorOutput(project)!!
+    private fun includeFiles(node: File, collector: ArrayList<File>) {
+        if (node.name.startsWith(".")) return
+        if (node.isFile) {
+            collector.add(node)
+        } else if (node.isDirectory) {
+            for (child in node.listFiles())
+                includeFiles(child, collector)
+        }
+    }
 
     fun execute(): List<RepairTaskResult>? {
         window.clear()
         lastResults = null
         try {
+            val projectBase = project.basePath!!
             val settings = AppSettingsState.instance
             val spt = settings.backendAddress.split(":")
             val host = spt[0]
@@ -33,12 +47,29 @@ class AstorProjectService(val project: Project) {
                 .build()
 
             val grpcStub = RepairServerGrpc.newBlockingStub(channel)
-            val request = RepairTaskRequest.newBuilder()
-                .setLocationType(RepairTaskRequest.LocationType.PATH)
-                .setLocation(project.basePath)
-                .setAlgorithm(settings.algorithm)
+            val builder = RepairTaskRequest.newBuilder().setProject(project.name)
+            if (host == "localhost") {
+                builder
+                    .setLocationType(RepairTaskRequest.LocationType.PATH)
+                    .setLocation(projectBase)
+
+            } else {
+                val out = ByteArrayOutputStream()
+                val files = ArrayList<File>()
+                includeFiles(File(projectBase), files)
+                ZipManager.zip(File(projectBase), files, out)
+                builder
+                    .setLocationType(RepairTaskRequest.LocationType.ZIP)
+                    .setContent(ByteString.copyFrom(out.toByteArray()))
+            }
+
+            val request = builder.setAlgorithm(settings.algorithm)
                 .build()
-            window.appendText("\nRequesting with args $request\n")
+
+            val request2 = builder.setContent(ByteString.EMPTY)
+                .build()
+            window.appendText("\nRequesting with args $request2\n")
+
             var results: List<RepairTaskResult>? = null
             for (resp in grpcStub.submitTask(request)) {
                 when (resp.frameType) {

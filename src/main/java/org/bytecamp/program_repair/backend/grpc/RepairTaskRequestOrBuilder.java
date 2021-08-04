@@ -53,4 +53,10 @@ public interface RepairTaskRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getAlgorithmBytes();
+
+  /**
+   * <code>bytes content = 5;</code>
+   * @return The content.
+   */
+  com.google.protobuf.ByteString getContent();
 }

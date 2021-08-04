@@ -1,5 +1,6 @@
 package org.bytecamp.program_repair.astor_plugin.window
 
+import org.jetbrains.debugger.sourcemap.doCanonicalize
 import java.awt.BorderLayout
 import javax.swing.JPanel
 import javax.swing.JTextArea
