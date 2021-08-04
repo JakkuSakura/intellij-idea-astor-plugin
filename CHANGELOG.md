@@ -3,6 +3,9 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.4]
+- Simplify cleaning code step
+
 ## [0.3.3]
 - Null pointer bugfix
 

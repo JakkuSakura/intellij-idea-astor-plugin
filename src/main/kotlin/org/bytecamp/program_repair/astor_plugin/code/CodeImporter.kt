@@ -7,15 +7,19 @@ class CodeImporter {
 
     fun flattenFile(psi: PsiElement): ArrayList<PsiMethod> {
         val result = ArrayList<PsiMethod>()
-        if (psi is PsiClass) {
-            for (m in psi.allMethods) {
-                result.addAll(flattenFile(m))
+        when (psi) {
+            is PsiClass -> {
+                for (m in psi.allMethods) {
+                    result.addAll(flattenFile(m))
+                }
             }
-        } else if (psi is PsiMethod) {
-            result.add(psi)
-        } else {
-            for (p in psi.children) {
-                result.addAll(flattenFile(p))
+            is PsiMethod -> {
+                result.add(psi)
+            }
+            else -> {
+                for (p in psi.children) {
+                    result.addAll(flattenFile(p))
+                }
             }
         }
         return result
@@ -91,13 +95,9 @@ class CodeImporter {
             var pm = 0
             while (ps < filteredSrc.size || pm < filteredModified.size) {
                 if (ps < filteredSrc.size && pm < filteredModified.size) {
-                    if (!compareList(
-                            expand(filteredSrc[ps], 100),
-                            expand(filteredModified[pm], 100)
-                        )
-                    ) {
-                        tryOverwriteBody(filteredSrc[ps], filteredModified[pm])
-                    }
+
+                    tryOverwriteBody(filteredSrc[ps], filteredModified[pm])
+
                     pm += 1
                     ps += 1
                 } else {
