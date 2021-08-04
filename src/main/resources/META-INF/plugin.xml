@@ -11,14 +11,16 @@
     <extensions defaultExtensionNs="com.intellij">
         <projectService serviceImplementation="org.bytecamp.program_repair.astor_plugin.services.AstorProjectService"/>
         <toolWindow id="Astor" anchor="bottom" icon="AllIcons.Actions.ShowHiddens" factoryClass="org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory" />
+        <applicationConfigurable parentId="tools" instance="org.bytecamp.program_repair.astor_plugin.configs.IntellijConfig"
+                                 id="org.bytecamp.program_repair.astor_plugin.configs.IntellijConfig" displayName="Astor Settings"/>
+        <applicationService serviceImplementation="org.bytecamp.program_repair.astor_plugin.configs.AppSettingsState"/>
+
+        <notificationGroup id="AstorShowDiffNotificationGroup" displayType="BALLOON" key="notification.group.astor_diff"/>
+        <notificationGroup id="AstorDoneNotificationGroup" displayType="BALLOON" key="notification.group.astor_done"/>
     </extensions>
 
     <projectListeners>
     </projectListeners>
-    <extensions defaultExtensionNs="com.intellij">
-        <notificationGroup id="AstorShowDiffNotificationGroup" displayType="BALLOON" key="notification.group.astor_diff"/>
-        <notificationGroup id="AstorDoneNotificationGroup" displayType="BALLOON" key="notification.group.astor_done"/>
-    </extensions>
 
     <actions>
         <group id="AstorAction" text="Astor" description="Analyze with Astor" >

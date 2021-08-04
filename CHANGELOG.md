@@ -3,6 +3,9 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.2]
+- Configuration
+- Indicates solution availability
 ## [0.3.1]
 - Apply new proto structure
 
