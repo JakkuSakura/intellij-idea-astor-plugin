@@ -3,6 +3,9 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.1]
+- Apply new proto structure
+
 ## [0.3.0]
 - Removed astor submodule 
 - Use new backend

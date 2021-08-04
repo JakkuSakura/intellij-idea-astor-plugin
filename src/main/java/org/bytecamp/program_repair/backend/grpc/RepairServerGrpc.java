@@ -18,29 +18,29 @@ public final class RepairServerGrpc {
   public static final String SERVICE_NAME = "RepairServer";
 
   // Static method descriptors that strictly reflect the proto.
-  private static volatile io.grpc.MethodDescriptor<org.bytecamp.program_repair.backend.grpc.RepairTaskRequest,
-      org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> getSubmitTaskMethod;
+  private static volatile io.grpc.MethodDescriptor<RepairTaskRequest,
+      RepairTaskResponse> getSubmitTaskMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SubmitTask",
-      requestType = org.bytecamp.program_repair.backend.grpc.RepairTaskRequest.class,
-      responseType = org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.class,
+      requestType = RepairTaskRequest.class,
+      responseType = RepairTaskResponse.class,
       methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
-  public static io.grpc.MethodDescriptor<org.bytecamp.program_repair.backend.grpc.RepairTaskRequest,
-      org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> getSubmitTaskMethod() {
-    io.grpc.MethodDescriptor<org.bytecamp.program_repair.backend.grpc.RepairTaskRequest, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> getSubmitTaskMethod;
+  public static io.grpc.MethodDescriptor<RepairTaskRequest,
+      RepairTaskResponse> getSubmitTaskMethod() {
+    io.grpc.MethodDescriptor<RepairTaskRequest, RepairTaskResponse> getSubmitTaskMethod;
     if ((getSubmitTaskMethod = RepairServerGrpc.getSubmitTaskMethod) == null) {
       synchronized (RepairServerGrpc.class) {
         if ((getSubmitTaskMethod = RepairServerGrpc.getSubmitTaskMethod) == null) {
           RepairServerGrpc.getSubmitTaskMethod = getSubmitTaskMethod =
-              io.grpc.MethodDescriptor.<org.bytecamp.program_repair.backend.grpc.RepairTaskRequest, org.bytecamp.program_repair.backend.grpc.RepairTaskResponse>newBuilder()
+              io.grpc.MethodDescriptor.<RepairTaskRequest, RepairTaskResponse>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SubmitTask"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.bytecamp.program_repair.backend.grpc.RepairTaskRequest.getDefaultInstance()))
+                  RepairTaskRequest.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.getDefaultInstance()))
+                  RepairTaskResponse.getDefaultInstance()))
               .setSchemaDescriptor(new RepairServerMethodDescriptorSupplier("SubmitTask"))
               .build();
         }
@@ -99,8 +99,8 @@ public final class RepairServerGrpc {
 
     /**
      */
-    public void submitTask(org.bytecamp.program_repair.backend.grpc.RepairTaskRequest request,
-        io.grpc.stub.StreamObserver<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> responseObserver) {
+    public void submitTask(RepairTaskRequest request,
+                           io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
       asyncUnimplementedUnaryCall(getSubmitTaskMethod(), responseObserver);
     }
 
@@ -110,8 +110,8 @@ public final class RepairServerGrpc {
             getSubmitTaskMethod(),
             asyncServerStreamingCall(
               new MethodHandlers<
-                org.bytecamp.program_repair.backend.grpc.RepairTaskRequest,
-                org.bytecamp.program_repair.backend.grpc.RepairTaskResponse>(
+                RepairTaskRequest,
+                RepairTaskResponse>(
                   this, METHODID_SUBMIT_TASK)))
           .build();
     }
@@ -133,8 +133,8 @@ public final class RepairServerGrpc {
 
     /**
      */
-    public void submitTask(org.bytecamp.program_repair.backend.grpc.RepairTaskRequest request,
-        io.grpc.stub.StreamObserver<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> responseObserver) {
+    public void submitTask(RepairTaskRequest request,
+                           io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
       asyncServerStreamingCall(
           getChannel().newCall(getSubmitTaskMethod(), getCallOptions()), request, responseObserver);
     }
@@ -156,8 +156,8 @@ public final class RepairServerGrpc {
 
     /**
      */
-    public java.util.Iterator<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse> submitTask(
-        org.bytecamp.program_repair.backend.grpc.RepairTaskRequest request) {
+    public java.util.Iterator<RepairTaskResponse> submitTask(
+        RepairTaskRequest request) {
       return blockingServerStreamingCall(
           getChannel(), getSubmitTaskMethod(), getCallOptions(), request);
     }
@@ -198,8 +198,8 @@ public final class RepairServerGrpc {
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
         case METHODID_SUBMIT_TASK:
-          serviceImpl.submitTask((org.bytecamp.program_repair.backend.grpc.RepairTaskRequest) request,
-              (io.grpc.stub.StreamObserver<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse>) responseObserver);
+          serviceImpl.submitTask((RepairTaskRequest) request,
+              (io.grpc.stub.StreamObserver<RepairTaskResponse>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -223,7 +223,7 @@ public final class RepairServerGrpc {
 
     @Override
     public com.google.protobuf.Descriptors.FileDescriptor getFileDescriptor() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.getDescriptor();
+      return RepairServerProto.getDescriptor();
     }
 
     @Override

@@ -16,7 +16,7 @@ public interface RepairTaskRequestOrBuilder extends
    * <code>.RepairTaskRequest.LocationType location_type = 1;</code>
    * @return The locationType.
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskRequest.LocationType getLocationType();
+  RepairTaskRequest.LocationType getLocationType();
 
   /**
    * <code>string location = 2;</code>

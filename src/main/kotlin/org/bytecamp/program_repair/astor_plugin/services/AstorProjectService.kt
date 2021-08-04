@@ -9,6 +9,7 @@ import org.bytecamp.program_repair.astor_plugin.window.AstorWindowFactory
 import org.bytecamp.program_repair.backend.grpc.RepairServerGrpc
 import org.bytecamp.program_repair.backend.grpc.RepairTaskRequest
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
+import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 
 
 class AstorProjectService(val project: Project) {
@@ -19,10 +20,10 @@ class AstorProjectService(val project: Project) {
 
     private val grpcStub = RepairServerGrpc.newBlockingStub(channel)
 
-    var lastPatches: List<RepairTaskResponse.Patch>? = null
+    var lastResults: List<RepairTaskResult>? = null
     val window = AstorWindowFactory.getAstorOutput(project)!!
 
-    fun execute(): List<RepairTaskResponse.Patch>? {
+    fun execute(): List<RepairTaskResult>? {
         window.clear()
         val request = RepairTaskRequest.newBuilder()
             .setLocationType(RepairTaskRequest.LocationType.PATH)
@@ -31,13 +32,13 @@ class AstorProjectService(val project: Project) {
             .build()
         window.appendText("\nRequesting with args $request\n")
         try {
-            var patches: List<RepairTaskResponse.Patch>? = null
+            var results: List<RepairTaskResult>? = null
             for (resp in grpcStub.submitTask(request)) {
                 when (resp.frameType) {
                     RepairTaskResponse.FrameType.RESULT -> {
                         window.appendText(resp.message)
-                        patches = resp.patchList
-                        lastPatches = patches
+                        results = resp.resultList
+                        lastResults = results
                     }
                     RepairTaskResponse.FrameType.STDOUT -> {
                         window.appendText(resp.message)
@@ -47,11 +48,11 @@ class AstorProjectService(val project: Project) {
                     }
                 }
             }
-            window.appendText("Result: $patches\n")
+            window.appendText("Result: $results\n")
             NotificationGroupManager.getInstance().getNotificationGroup("AstorDoneNotificationGroup")
                 .createNotification("Astor execution finished", NotificationType.INFORMATION)
                 .notify(project)
-            return patches
+            return results
         } catch (ex: Exception) {
             window.appendText(ex.stackTraceToString())
             NotificationGroupManager.getInstance().getNotificationGroup("AstorDoneNotificationGroup")

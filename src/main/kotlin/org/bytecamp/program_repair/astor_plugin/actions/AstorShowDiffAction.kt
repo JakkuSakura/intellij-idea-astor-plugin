@@ -18,7 +18,7 @@ import com.intellij.psi.codeStyle.JavaCodeStyleManager
 import com.intellij.vcsUtil.VcsUtil
 import org.bytecamp.program_repair.astor_plugin.code.CodeImporter
 import org.bytecamp.program_repair.astor_plugin.services.AstorProjectService
-import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
+import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 import java.io.File
 
 
@@ -48,7 +48,7 @@ object AstorDiff {
         }
     }
 
-    fun showDiff(project: Project, patches: List<RepairTaskResponse.Patch>) {
+    fun showDiff(project: Project, patches: List<RepairTaskResult.Patch>) {
         try {
             val changes = ArrayList<Change>()
             val psiFactory = PsiFileFactory.getInstance(project)
@@ -101,9 +101,9 @@ class AstorShowDiffAction : AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project = e.project!!
         val service = project.service<AstorProjectService>()
-        if (service.lastPatches != null) {
+        if (service.lastResults != null && service.lastResults!![0].patchList.isNotEmpty()) {
             runWriteCommandAction(project) {
-                AstorDiff.showDiff(project, service.lastPatches!!)
+                AstorDiff.showDiff(project, service.lastResults!![0].patchList)
             }
         } else {
             NotificationGroupManager.getInstance().getNotificationGroup("AstorShowDiffNotificationGroup")

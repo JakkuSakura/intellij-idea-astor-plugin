@@ -20,7 +20,7 @@ class AstorExecuteAstorAction : AnAction() {
             val patches = service.execute()
             if (patches != null) {
                 runWriteCommandAction(project) {
-                    AstorDiff.showDiff(project, patches)
+                    AstorDiff.showDiff(project, patches[0].patchList)
                 }
 
             }

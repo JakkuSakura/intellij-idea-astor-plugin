@@ -16,7 +16,7 @@ public interface RepairTaskResponseOrBuilder extends
    * <code>.RepairTaskResponse.FrameType frame_type = 1;</code>
    * @return The frameType.
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.FrameType getFrameType();
+  RepairTaskResponse.FrameType getFrameType();
 
   /**
    * <code>string message = 2;</code>
@@ -31,26 +31,26 @@ public interface RepairTaskResponseOrBuilder extends
       getMessageBytes();
 
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  java.util.List<org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch> 
-      getPatchList();
+  java.util.List<RepairTaskResult>
+      getResultList();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch getPatch(int index);
+  RepairTaskResult getResult(int index);
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  int getPatchCount();
+  int getResultCount();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  java.util.List<? extends org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder> 
-      getPatchOrBuilderList();
+  java.util.List<? extends RepairTaskResultOrBuilder>
+      getResultOrBuilderList();
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
-  org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.PatchOrBuilder getPatchOrBuilder(
+  RepairTaskResultOrBuilder getResultOrBuilder(
       int index);
 }

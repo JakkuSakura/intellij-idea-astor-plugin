@@ -18,7 +18,7 @@ private static final long serialVersionUID = 0L;
   private RepairTaskResponse() {
     frameType_ = 0;
     message_ = "";
-    patch_ = java.util.Collections.emptyList();
+    result_ = java.util.Collections.emptyList();
   }
 
   @Override
@@ -66,11 +66,11 @@ private static final long serialVersionUID = 0L;
           }
           case 26: {
             if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-              patch_ = new java.util.ArrayList<Patch>();
+              result_ = new java.util.ArrayList<RepairTaskResult>();
               mutable_bitField0_ |= 0x00000001;
             }
-            patch_.add(
-                input.readMessage(Patch.parser(), extensionRegistry));
+            result_.add(
+                input.readMessage(RepairTaskResult.parser(), extensionRegistry));
             break;
           }
           default: {
@@ -89,7 +89,7 @@ private static final long serialVersionUID = 0L;
           e).setUnfinishedMessage(this);
     } finally {
       if (((mutable_bitField0_ & 0x00000001) != 0)) {
-        patch_ = java.util.Collections.unmodifiableList(patch_);
+        result_ = java.util.Collections.unmodifiableList(result_);
       }
       this.unknownFields = unknownFields.build();
       makeExtensionsImmutable();
@@ -97,13 +97,13 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_descriptor;
+    return RepairServerProto.internal_static_RepairTaskResponse_descriptor;
   }
 
   @Override
   protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_fieldAccessorTable
+    return RepairServerProto.internal_static_RepairTaskResponse_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             RepairTaskResponse.class, Builder.class);
   }
@@ -216,795 +216,6 @@ private static final long serialVersionUID = 0L;
     // @@protoc_insertion_point(enum_scope:RepairTaskResponse.FrameType)
   }
 
-  public interface PatchOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:RepairTaskResponse.Patch)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>bool success = 1;</code>
-     * @return The success.
-     */
-    boolean getSuccess();
-
-    /**
-     * <code>string modified = 2;</code>
-     * @return The modified.
-     */
-    String getModified();
-    /**
-     * <code>string modified = 2;</code>
-     * @return The bytes for modified.
-     */
-    com.google.protobuf.ByteString
-        getModifiedBytes();
-
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The sourcePath.
-     */
-    String getSourcePath();
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The bytes for sourcePath.
-     */
-    com.google.protobuf.ByteString
-        getSourcePathBytes();
-  }
-  /**
-   * Protobuf type {@code RepairTaskResponse.Patch}
-   */
-  public static final class Patch extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:RepairTaskResponse.Patch)
-      PatchOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use Patch.newBuilder() to construct.
-    private Patch(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Patch() {
-      modified_ = "";
-      sourcePath_ = "";
-    }
-
-    @Override
-    @SuppressWarnings({"unused"})
-    protected Object newInstance(
-        UnusedPrivateParameter unused) {
-      return new Patch();
-    }
-
-    @Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private Patch(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new NullPointerException();
-      }
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 8: {
-
-              success_ = input.readBool();
-              break;
-            }
-            case 18: {
-              String s = input.readStringRequireUtf8();
-
-              modified_ = s;
-              break;
-            }
-            case 26: {
-              String s = input.readStringRequireUtf8();
-
-              sourcePath_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownField(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-    }
-
-    @Override
-    protected FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              Patch.class, Builder.class);
-    }
-
-    public static final int SUCCESS_FIELD_NUMBER = 1;
-    private boolean success_;
-    /**
-     * <code>bool success = 1;</code>
-     * @return The success.
-     */
-    @Override
-    public boolean getSuccess() {
-      return success_;
-    }
-
-    public static final int MODIFIED_FIELD_NUMBER = 2;
-    private volatile Object modified_;
-    /**
-     * <code>string modified = 2;</code>
-     * @return The modified.
-     */
-    @Override
-    public String getModified() {
-      Object ref = modified_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        modified_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string modified = 2;</code>
-     * @return The bytes for modified.
-     */
-    @Override
-    public com.google.protobuf.ByteString
-        getModifiedBytes() {
-      Object ref = modified_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        modified_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int SOURCE_PATH_FIELD_NUMBER = 3;
-    private volatile Object sourcePath_;
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The sourcePath.
-     */
-    @Override
-    public String getSourcePath() {
-      Object ref = sourcePath_;
-      if (ref instanceof String) {
-        return (String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        String s = bs.toStringUtf8();
-        sourcePath_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string source_path = 3;</code>
-     * @return The bytes for sourcePath.
-     */
-    @Override
-    public com.google.protobuf.ByteString
-        getSourcePathBytes() {
-      Object ref = sourcePath_;
-      if (ref instanceof String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (String) ref);
-        sourcePath_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (success_ != false) {
-        output.writeBool(1, success_);
-      }
-      if (!getModifiedBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, modified_);
-      }
-      if (!getSourcePathBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, sourcePath_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (success_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, success_);
-      }
-      if (!getModifiedBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, modified_);
-      }
-      if (!getSourcePathBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, sourcePath_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof Patch)) {
-        return super.equals(obj);
-      }
-      Patch other = (Patch) obj;
-
-      if (getSuccess()
-          != other.getSuccess()) return false;
-      if (!getModified()
-          .equals(other.getModified())) return false;
-      if (!getSourcePath()
-          .equals(other.getSourcePath())) return false;
-      if (!unknownFields.equals(other.unknownFields)) return false;
-      return true;
-    }
-
-    @Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSuccess());
-      hash = (37 * hash) + MODIFIED_FIELD_NUMBER;
-      hash = (53 * hash) + getModified().hashCode();
-      hash = (37 * hash) + SOURCE_PATH_FIELD_NUMBER;
-      hash = (53 * hash) + getSourcePath().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static Patch parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Patch parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Patch parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Patch parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Patch parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static Patch parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static Patch parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static Patch parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static Patch parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static Patch parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static Patch parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static Patch parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(Patch prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @Override
-    protected Builder newBuilderForType(
-        BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code RepairTaskResponse.Patch}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:RepairTaskResponse.Patch)
-        PatchOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-      }
-
-      @Override
-      protected FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                Patch.class, Builder.class);
-      }
-
-      // Construct using org.bytecamp.program_repair.backend.grpc.RepairTaskResponse.Patch.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @Override
-      public Builder clear() {
-        super.clear();
-        success_ = false;
-
-        modified_ = "";
-
-        sourcePath_ = "";
-
-        return this;
-      }
-
-      @Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_Patch_descriptor;
-      }
-
-      @Override
-      public Patch getDefaultInstanceForType() {
-        return Patch.getDefaultInstance();
-      }
-
-      @Override
-      public Patch build() {
-        Patch result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @Override
-      public Patch buildPartial() {
-        Patch result = new Patch(this);
-        result.success_ = success_;
-        result.modified_ = modified_;
-        result.sourcePath_ = sourcePath_;
-        onBuilt();
-        return result;
-      }
-
-      @Override
-      public Builder clone() {
-        return super.clone();
-      }
-      @Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.setField(field, value);
-      }
-      @Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return super.clearField(field);
-      }
-      @Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return super.clearOneof(oneof);
-      }
-      @Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return super.setRepeatedField(field, index, value);
-      }
-      @Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return super.addRepeatedField(field, value);
-      }
-      @Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof Patch) {
-          return mergeFrom((Patch)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(Patch other) {
-        if (other == Patch.getDefaultInstance()) return this;
-        if (other.getSuccess() != false) {
-          setSuccess(other.getSuccess());
-        }
-        if (!other.getModified().isEmpty()) {
-          modified_ = other.modified_;
-          onChanged();
-        }
-        if (!other.getSourcePath().isEmpty()) {
-          sourcePath_ = other.sourcePath_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        Patch parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (Patch) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private boolean success_ ;
-      /**
-       * <code>bool success = 1;</code>
-       * @return The success.
-       */
-      @Override
-      public boolean getSuccess() {
-        return success_;
-      }
-      /**
-       * <code>bool success = 1;</code>
-       * @param value The success to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSuccess(boolean value) {
-        
-        success_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bool success = 1;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSuccess() {
-        
-        success_ = false;
-        onChanged();
-        return this;
-      }
-
-      private Object modified_ = "";
-      /**
-       * <code>string modified = 2;</code>
-       * @return The modified.
-       */
-      public String getModified() {
-        Object ref = modified_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          modified_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @return The bytes for modified.
-       */
-      public com.google.protobuf.ByteString
-          getModifiedBytes() {
-        Object ref = modified_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          modified_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @param value The modified to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModified(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        modified_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearModified() {
-        
-        modified_ = getDefaultInstance().getModified();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string modified = 2;</code>
-       * @param value The bytes for modified to set.
-       * @return This builder for chaining.
-       */
-      public Builder setModifiedBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        modified_ = value;
-        onChanged();
-        return this;
-      }
-
-      private Object sourcePath_ = "";
-      /**
-       * <code>string source_path = 3;</code>
-       * @return The sourcePath.
-       */
-      public String getSourcePath() {
-        Object ref = sourcePath_;
-        if (!(ref instanceof String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          String s = bs.toStringUtf8();
-          sourcePath_ = s;
-          return s;
-        } else {
-          return (String) ref;
-        }
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @return The bytes for sourcePath.
-       */
-      public com.google.protobuf.ByteString
-          getSourcePathBytes() {
-        Object ref = sourcePath_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (String) ref);
-          sourcePath_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @param value The sourcePath to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSourcePath(
-          String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        sourcePath_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearSourcePath() {
-        
-        sourcePath_ = getDefaultInstance().getSourcePath();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string source_path = 3;</code>
-       * @param value The bytes for sourcePath to set.
-       * @return This builder for chaining.
-       */
-      public Builder setSourcePathBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        sourcePath_ = value;
-        onChanged();
-        return this;
-      }
-      @Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFields(unknownFields);
-      }
-
-      @Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:RepairTaskResponse.Patch)
-    }
-
-    // @@protoc_insertion_point(class_scope:RepairTaskResponse.Patch)
-    private static final Patch DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new Patch();
-    }
-
-    public static Patch getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Patch>
-        PARSER = new com.google.protobuf.AbstractParser<Patch>() {
-      @Override
-      public Patch parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Patch(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Patch> parser() {
-      return PARSER;
-    }
-
-    @Override
-    public com.google.protobuf.Parser<Patch> getParserForType() {
-      return PARSER;
-    }
-
-    @Override
-    public Patch getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public static final int FRAME_TYPE_FIELD_NUMBER = 1;
   private int frameType_;
   /**
@@ -1062,44 +273,44 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int PATCH_FIELD_NUMBER = 3;
-  private java.util.List<Patch> patch_;
+  public static final int RESULT_FIELD_NUMBER = 3;
+  private java.util.List<RepairTaskResult> result_;
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @Override
-  public java.util.List<Patch> getPatchList() {
-    return patch_;
+  public java.util.List<RepairTaskResult> getResultList() {
+    return result_;
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @Override
-  public java.util.List<? extends PatchOrBuilder>
-      getPatchOrBuilderList() {
-    return patch_;
+  public java.util.List<? extends RepairTaskResultOrBuilder>
+      getResultOrBuilderList() {
+    return result_;
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @Override
-  public int getPatchCount() {
-    return patch_.size();
+  public int getResultCount() {
+    return result_.size();
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @Override
-  public Patch getPatch(int index) {
-    return patch_.get(index);
+  public RepairTaskResult getResult(int index) {
+    return result_.get(index);
   }
   /**
-   * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+   * <code>repeated .RepairTaskResult result = 3;</code>
    */
   @Override
-  public PatchOrBuilder getPatchOrBuilder(
+  public RepairTaskResultOrBuilder getResultOrBuilder(
       int index) {
-    return patch_.get(index);
+    return result_.get(index);
   }
 
   private byte memoizedIsInitialized = -1;
@@ -1122,8 +333,8 @@ private static final long serialVersionUID = 0L;
     if (!getMessageBytes().isEmpty()) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
-    for (int i = 0; i < patch_.size(); i++) {
-      output.writeMessage(3, patch_.get(i));
+    for (int i = 0; i < result_.size(); i++) {
+      output.writeMessage(3, result_.get(i));
     }
     unknownFields.writeTo(output);
   }
@@ -1141,9 +352,9 @@ private static final long serialVersionUID = 0L;
     if (!getMessageBytes().isEmpty()) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
-    for (int i = 0; i < patch_.size(); i++) {
+    for (int i = 0; i < result_.size(); i++) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(3, patch_.get(i));
+        .computeMessageSize(3, result_.get(i));
     }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
@@ -1163,8 +374,8 @@ private static final long serialVersionUID = 0L;
     if (frameType_ != other.frameType_) return false;
     if (!getMessage()
         .equals(other.getMessage())) return false;
-    if (!getPatchList()
-        .equals(other.getPatchList())) return false;
+    if (!getResultList()
+        .equals(other.getResultList())) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -1180,9 +391,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + frameType_;
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
-    if (getPatchCount() > 0) {
-      hash = (37 * hash) + PATCH_FIELD_NUMBER;
-      hash = (53 * hash) + getPatchList().hashCode();
+    if (getResultCount() > 0) {
+      hash = (37 * hash) + RESULT_FIELD_NUMBER;
+      hash = (53 * hash) + getResultList().hashCode();
     }
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
@@ -1285,16 +496,16 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:RepairTaskResponse)
-      org.bytecamp.program_repair.backend.grpc.RepairTaskResponseOrBuilder {
+      RepairTaskResponseOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_descriptor;
+      return RepairServerProto.internal_static_RepairTaskResponse_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_fieldAccessorTable
+      return RepairServerProto.internal_static_RepairTaskResponse_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               RepairTaskResponse.class, Builder.class);
     }
@@ -1312,7 +523,7 @@ private static final long serialVersionUID = 0L;
     private void maybeForceBuilderInitialization() {
       if (com.google.protobuf.GeneratedMessageV3
               .alwaysUseFieldBuilders) {
-        getPatchFieldBuilder();
+        getResultFieldBuilder();
       }
     }
     @Override
@@ -1322,11 +533,11 @@ private static final long serialVersionUID = 0L;
 
       message_ = "";
 
-      if (patchBuilder_ == null) {
-        patch_ = java.util.Collections.emptyList();
+      if (resultBuilder_ == null) {
+        result_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
       } else {
-        patchBuilder_.clear();
+        resultBuilder_.clear();
       }
       return this;
     }
@@ -1334,7 +545,7 @@ private static final long serialVersionUID = 0L;
     @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskResponse_descriptor;
+      return RepairServerProto.internal_static_RepairTaskResponse_descriptor;
     }
 
     @Override
@@ -1357,14 +568,14 @@ private static final long serialVersionUID = 0L;
       int from_bitField0_ = bitField0_;
       result.frameType_ = frameType_;
       result.message_ = message_;
-      if (patchBuilder_ == null) {
+      if (resultBuilder_ == null) {
         if (((bitField0_ & 0x00000001) != 0)) {
-          patch_ = java.util.Collections.unmodifiableList(patch_);
+          result_ = java.util.Collections.unmodifiableList(result_);
           bitField0_ = (bitField0_ & ~0x00000001);
         }
-        result.patch_ = patch_;
+        result.result_ = result_;
       } else {
-        result.patch_ = patchBuilder_.build();
+        result.result_ = resultBuilder_.build();
       }
       onBuilt();
       return result;
@@ -1421,29 +632,29 @@ private static final long serialVersionUID = 0L;
         message_ = other.message_;
         onChanged();
       }
-      if (patchBuilder_ == null) {
-        if (!other.patch_.isEmpty()) {
-          if (patch_.isEmpty()) {
-            patch_ = other.patch_;
+      if (resultBuilder_ == null) {
+        if (!other.result_.isEmpty()) {
+          if (result_.isEmpty()) {
+            result_ = other.result_;
             bitField0_ = (bitField0_ & ~0x00000001);
           } else {
-            ensurePatchIsMutable();
-            patch_.addAll(other.patch_);
+            ensureResultIsMutable();
+            result_.addAll(other.result_);
           }
           onChanged();
         }
       } else {
-        if (!other.patch_.isEmpty()) {
-          if (patchBuilder_.isEmpty()) {
-            patchBuilder_.dispose();
-            patchBuilder_ = null;
-            patch_ = other.patch_;
+        if (!other.result_.isEmpty()) {
+          if (resultBuilder_.isEmpty()) {
+            resultBuilder_.dispose();
+            resultBuilder_ = null;
+            result_ = other.result_;
             bitField0_ = (bitField0_ & ~0x00000001);
-            patchBuilder_ = 
+            resultBuilder_ = 
               com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
-                 getPatchFieldBuilder() : null;
+                 getResultFieldBuilder() : null;
           } else {
-            patchBuilder_.addAllMessages(other.patch_);
+            resultBuilder_.addAllMessages(other.result_);
           }
         }
       }
@@ -1607,244 +818,244 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
-    private java.util.List<Patch> patch_ =
+    private java.util.List<RepairTaskResult> result_ =
       java.util.Collections.emptyList();
-    private void ensurePatchIsMutable() {
+    private void ensureResultIsMutable() {
       if (!((bitField0_ & 0x00000001) != 0)) {
-        patch_ = new java.util.ArrayList<Patch>(patch_);
+        result_ = new java.util.ArrayList<RepairTaskResult>(result_);
         bitField0_ |= 0x00000001;
        }
     }
 
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        Patch, Patch.Builder, PatchOrBuilder> patchBuilder_;
+        RepairTaskResult, RepairTaskResult.Builder, RepairTaskResultOrBuilder> resultBuilder_;
 
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<Patch> getPatchList() {
-      if (patchBuilder_ == null) {
-        return java.util.Collections.unmodifiableList(patch_);
+    public java.util.List<RepairTaskResult> getResultList() {
+      if (resultBuilder_ == null) {
+        return java.util.Collections.unmodifiableList(result_);
       } else {
-        return patchBuilder_.getMessageList();
+        return resultBuilder_.getMessageList();
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public int getPatchCount() {
-      if (patchBuilder_ == null) {
-        return patch_.size();
+    public int getResultCount() {
+      if (resultBuilder_ == null) {
+        return result_.size();
       } else {
-        return patchBuilder_.getCount();
+        return resultBuilder_.getCount();
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Patch getPatch(int index) {
-      if (patchBuilder_ == null) {
-        return patch_.get(index);
+    public RepairTaskResult getResult(int index) {
+      if (resultBuilder_ == null) {
+        return result_.get(index);
       } else {
-        return patchBuilder_.getMessage(index);
+        return resultBuilder_.getMessage(index);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder setPatch(
-        int index, Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder setResult(
+        int index, RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.set(index, value);
+        ensureResultIsMutable();
+        result_.set(index, value);
         onChanged();
       } else {
-        patchBuilder_.setMessage(index, value);
+        resultBuilder_.setMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder setPatch(
-        int index, Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.set(index, builderForValue.build());
+    public Builder setResult(
+        int index, RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.set(index, builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.setMessage(index, builderForValue.build());
+        resultBuilder_.setMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder addResult(RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.add(value);
+        ensureResultIsMutable();
+        result_.add(value);
         onChanged();
       } else {
-        patchBuilder_.addMessage(value);
+        resultBuilder_.addMessage(value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        int index, Patch value) {
-      if (patchBuilder_ == null) {
+    public Builder addResult(
+        int index, RepairTaskResult value) {
+      if (resultBuilder_ == null) {
         if (value == null) {
           throw new NullPointerException();
         }
-        ensurePatchIsMutable();
-        patch_.add(index, value);
+        ensureResultIsMutable();
+        result_.add(index, value);
         onChanged();
       } else {
-        patchBuilder_.addMessage(index, value);
+        resultBuilder_.addMessage(index, value);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.add(builderForValue.build());
+    public Builder addResult(
+        RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.add(builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.addMessage(builderForValue.build());
+        resultBuilder_.addMessage(builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addPatch(
-        int index, Patch.Builder builderForValue) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.add(index, builderForValue.build());
+    public Builder addResult(
+        int index, RepairTaskResult.Builder builderForValue) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.add(index, builderForValue.build());
         onChanged();
       } else {
-        patchBuilder_.addMessage(index, builderForValue.build());
+        resultBuilder_.addMessage(index, builderForValue.build());
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder addAllPatch(
-        Iterable<? extends Patch> values) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
+    public Builder addAllResult(
+        Iterable<? extends RepairTaskResult> values) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
         com.google.protobuf.AbstractMessageLite.Builder.addAll(
-            values, patch_);
+            values, result_);
         onChanged();
       } else {
-        patchBuilder_.addAllMessages(values);
+        resultBuilder_.addAllMessages(values);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder clearPatch() {
-      if (patchBuilder_ == null) {
-        patch_ = java.util.Collections.emptyList();
+    public Builder clearResult() {
+      if (resultBuilder_ == null) {
+        result_ = java.util.Collections.emptyList();
         bitField0_ = (bitField0_ & ~0x00000001);
         onChanged();
       } else {
-        patchBuilder_.clear();
+        resultBuilder_.clear();
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Builder removePatch(int index) {
-      if (patchBuilder_ == null) {
-        ensurePatchIsMutable();
-        patch_.remove(index);
+    public Builder removeResult(int index) {
+      if (resultBuilder_ == null) {
+        ensureResultIsMutable();
+        result_.remove(index);
         onChanged();
       } else {
-        patchBuilder_.remove(index);
+        resultBuilder_.remove(index);
       }
       return this;
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Patch.Builder getPatchBuilder(
+    public RepairTaskResult.Builder getResultBuilder(
         int index) {
-      return getPatchFieldBuilder().getBuilder(index);
+      return getResultFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public PatchOrBuilder getPatchOrBuilder(
+    public RepairTaskResultOrBuilder getResultOrBuilder(
         int index) {
-      if (patchBuilder_ == null) {
-        return patch_.get(index);  } else {
-        return patchBuilder_.getMessageOrBuilder(index);
+      if (resultBuilder_ == null) {
+        return result_.get(index);  } else {
+        return resultBuilder_.getMessageOrBuilder(index);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<? extends PatchOrBuilder>
-         getPatchOrBuilderList() {
-      if (patchBuilder_ != null) {
-        return patchBuilder_.getMessageOrBuilderList();
+    public java.util.List<? extends RepairTaskResultOrBuilder>
+         getResultOrBuilderList() {
+      if (resultBuilder_ != null) {
+        return resultBuilder_.getMessageOrBuilderList();
       } else {
-        return java.util.Collections.unmodifiableList(patch_);
+        return java.util.Collections.unmodifiableList(result_);
       }
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Patch.Builder addPatchBuilder() {
-      return getPatchFieldBuilder().addBuilder(
-          Patch.getDefaultInstance());
+    public RepairTaskResult.Builder addResultBuilder() {
+      return getResultFieldBuilder().addBuilder(
+          RepairTaskResult.getDefaultInstance());
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public Patch.Builder addPatchBuilder(
+    public RepairTaskResult.Builder addResultBuilder(
         int index) {
-      return getPatchFieldBuilder().addBuilder(
-          index, Patch.getDefaultInstance());
+      return getResultFieldBuilder().addBuilder(
+          index, RepairTaskResult.getDefaultInstance());
     }
     /**
-     * <code>repeated .RepairTaskResponse.Patch patch = 3;</code>
+     * <code>repeated .RepairTaskResult result = 3;</code>
      */
-    public java.util.List<Patch.Builder>
-         getPatchBuilderList() {
-      return getPatchFieldBuilder().getBuilderList();
+    public java.util.List<RepairTaskResult.Builder>
+         getResultBuilderList() {
+      return getResultFieldBuilder().getBuilderList();
     }
     private com.google.protobuf.RepeatedFieldBuilderV3<
-        Patch, Patch.Builder, PatchOrBuilder>
-        getPatchFieldBuilder() {
-      if (patchBuilder_ == null) {
-        patchBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-            Patch, Patch.Builder, PatchOrBuilder>(
-                patch_,
+        RepairTaskResult, RepairTaskResult.Builder, RepairTaskResultOrBuilder>
+        getResultFieldBuilder() {
+      if (resultBuilder_ == null) {
+        resultBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+            RepairTaskResult, RepairTaskResult.Builder, RepairTaskResultOrBuilder>(
+                result_,
                 ((bitField0_ & 0x00000001) != 0),
                 getParentForChildren(),
                 isClean());
-        patch_ = null;
+        result_ = null;
       }
-      return patchBuilder_;
+      return resultBuilder_;
     }
     @Override
     public final Builder setUnknownFields(

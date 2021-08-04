@@ -97,13 +97,13 @@ private static final long serialVersionUID = 0L;
   }
   public static final com.google.protobuf.Descriptors.Descriptor
       getDescriptor() {
-    return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskRequest_descriptor;
+    return RepairServerProto.internal_static_RepairTaskRequest_descriptor;
   }
 
   @Override
   protected FieldAccessorTable
       internalGetFieldAccessorTable() {
-    return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskRequest_fieldAccessorTable
+    return RepairServerProto.internal_static_RepairTaskRequest_fieldAccessorTable
         .ensureFieldAccessorsInitialized(
             RepairTaskRequest.class, Builder.class);
   }
@@ -539,16 +539,16 @@ private static final long serialVersionUID = 0L;
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
       // @@protoc_insertion_point(builder_implements:RepairTaskRequest)
-      org.bytecamp.program_repair.backend.grpc.RepairTaskRequestOrBuilder {
+      RepairTaskRequestOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskRequest_descriptor;
+      return RepairServerProto.internal_static_RepairTaskRequest_descriptor;
     }
 
     @Override
     protected FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskRequest_fieldAccessorTable
+      return RepairServerProto.internal_static_RepairTaskRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               RepairTaskRequest.class, Builder.class);
     }
@@ -585,7 +585,7 @@ private static final long serialVersionUID = 0L;
     @Override
     public com.google.protobuf.Descriptors.Descriptor
         getDescriptorForType() {
-      return org.bytecamp.program_repair.backend.grpc.RepairServerProto.internal_static_RepairTaskRequest_descriptor;
+      return RepairServerProto.internal_static_RepairTaskRequest_descriptor;
     }
 
     @Override
