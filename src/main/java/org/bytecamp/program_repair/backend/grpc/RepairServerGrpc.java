@@ -1,10 +1,9 @@
 package org.bytecamp.program_repair.backend.grpc;
 
 import static io.grpc.MethodDescriptor.generateFullMethodName;
-import static io.grpc.stub.ClientCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ClientCalls.blockingServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncServerStreamingCall;
-import static io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall;
+import static io.grpc.stub.ClientCalls.asyncBidiStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncBidiStreamingCall;
+import static io.grpc.stub.ServerCalls.asyncUnimplementedStreamingCall;
 
 /**
  */
@@ -25,7 +24,7 @@ public final class RepairServerGrpc {
       fullMethodName = SERVICE_NAME + '/' + "SubmitTask",
       requestType = RepairTaskRequest.class,
       responseType = RepairTaskResponse.class,
-      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+      methodType = io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
   public static io.grpc.MethodDescriptor<RepairTaskRequest,
       RepairTaskResponse> getSubmitTaskMethod() {
     io.grpc.MethodDescriptor<RepairTaskRequest, RepairTaskResponse> getSubmitTaskMethod;
@@ -34,7 +33,7 @@ public final class RepairServerGrpc {
         if ((getSubmitTaskMethod = RepairServerGrpc.getSubmitTaskMethod) == null) {
           RepairServerGrpc.getSubmitTaskMethod = getSubmitTaskMethod =
               io.grpc.MethodDescriptor.<RepairTaskRequest, RepairTaskResponse>newBuilder()
-              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setType(io.grpc.MethodDescriptor.MethodType.BIDI_STREAMING)
               .setFullMethodName(generateFullMethodName(SERVICE_NAME, "SubmitTask"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
@@ -99,16 +98,16 @@ public final class RepairServerGrpc {
 
     /**
      */
-    public void submitTask(RepairTaskRequest request,
-                           io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
-      asyncUnimplementedUnaryCall(getSubmitTaskMethod(), responseObserver);
+    public io.grpc.stub.StreamObserver<RepairTaskRequest> submitTask(
+        io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
+      return asyncUnimplementedStreamingCall(getSubmitTaskMethod(), responseObserver);
     }
 
     @Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
             getSubmitTaskMethod(),
-            asyncServerStreamingCall(
+            asyncBidiStreamingCall(
               new MethodHandlers<
                 RepairTaskRequest,
                 RepairTaskResponse>(
@@ -133,10 +132,10 @@ public final class RepairServerGrpc {
 
     /**
      */
-    public void submitTask(RepairTaskRequest request,
-                           io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
-      asyncServerStreamingCall(
-          getChannel().newCall(getSubmitTaskMethod(), getCallOptions()), request, responseObserver);
+    public io.grpc.stub.StreamObserver<RepairTaskRequest> submitTask(
+        io.grpc.stub.StreamObserver<RepairTaskResponse> responseObserver) {
+      return asyncBidiStreamingCall(
+          getChannel().newCall(getSubmitTaskMethod(), getCallOptions()), responseObserver);
     }
   }
 
@@ -152,14 +151,6 @@ public final class RepairServerGrpc {
     protected RepairServerBlockingStub build(
         io.grpc.Channel channel, io.grpc.CallOptions callOptions) {
       return new RepairServerBlockingStub(channel, callOptions);
-    }
-
-    /**
-     */
-    public java.util.Iterator<RepairTaskResponse> submitTask(
-        RepairTaskRequest request) {
-      return blockingServerStreamingCall(
-          getChannel(), getSubmitTaskMethod(), getCallOptions(), request);
     }
   }
 
@@ -197,10 +188,6 @@ public final class RepairServerGrpc {
     @SuppressWarnings("unchecked")
     public void invoke(Req request, io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
-        case METHODID_SUBMIT_TASK:
-          serviceImpl.submitTask((RepairTaskRequest) request,
-              (io.grpc.stub.StreamObserver<RepairTaskResponse>) responseObserver);
-          break;
         default:
           throw new AssertionError();
       }
@@ -211,6 +198,9 @@ public final class RepairServerGrpc {
     public io.grpc.stub.StreamObserver<Req> invoke(
         io.grpc.stub.StreamObserver<Resp> responseObserver) {
       switch (methodId) {
+        case METHODID_SUBMIT_TASK:
+          return (io.grpc.stub.StreamObserver<Req>) serviceImpl.submitTask(
+              (io.grpc.stub.StreamObserver<RepairTaskResponse>) responseObserver);
         default:
           throw new AssertionError();
       }

@@ -6,6 +6,8 @@ import com.intellij.notification.NotificationType
 import com.intellij.openapi.project.Project
 import io.grpc.ManagedChannel
 import io.grpc.ManagedChannelBuilder
+import io.grpc.stub.StreamObserver
+import kotlinx.coroutines.internal.synchronized
 import org.bytecamp.program_repair.astor_plugin.configs.AppSettingsState
 import org.bytecamp.program_repair.astor_plugin.utils.ZipManager
 import org.bytecamp.program_repair.astor_plugin.window.AstorNotification
@@ -16,7 +18,8 @@ import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 import java.io.ByteArrayOutputStream
 import java.io.File
-
+import kotlin.math.ceil
+import kotlin.math.min
 
 class AstorProjectService(val project: Project) {
     private val logger = com.intellij.openapi.diagnostic.Logger.getInstance(AstorProjectService::class.java)
@@ -33,7 +36,9 @@ class AstorProjectService(val project: Project) {
         }
     }
 
+    @Synchronized
     fun execute(): List<RepairTaskResult>? {
+
         window.clear()
         lastResults = null
         try {
@@ -46,49 +51,90 @@ class AstorProjectService(val project: Project) {
                 .usePlaintext()
                 .build()
 
-            val grpcStub = RepairServerGrpc.newBlockingStub(channel)
-            val builder = RepairTaskRequest.newBuilder().setProject(project.name)
+            val grpcStub = RepairServerGrpc.newStub(channel)
+            val builder = RepairTaskRequest.newBuilder()
+                .setProject(project.name)
+                .setAlgorithm(settings.algorithm)
             if (host == "localhost") {
                 builder
                     .setLocationType(RepairTaskRequest.LocationType.PATH)
                     .setLocation(projectBase)
 
             } else {
-                val out = ByteArrayOutputStream()
-                val files = ArrayList<File>()
-                includeFiles(File(projectBase), files)
-                ZipManager.zip(File(projectBase), files, out)
                 builder
                     .setLocationType(RepairTaskRequest.LocationType.ZIP)
-                    .setContent(ByteString.copyFrom(out.toByteArray()))
             }
 
-            val request = builder.setAlgorithm(settings.algorithm)
-                .build()
-
-            val request2 = builder.setContent(ByteString.EMPTY)
-                .build()
-            window.appendText("\nRequesting with args $request2\n")
 
             var results: List<RepairTaskResult>? = null
-            for (resp in grpcStub.submitTask(request)) {
-                when (resp.frameType) {
-                    RepairTaskResponse.FrameType.RESULT -> {
-                        window.appendText(resp.message)
-                        results = resp.resultList
+
+            class Task : StreamObserver<RepairTaskResponse> {
+                var err: Throwable? = null
+                var done = false
+                override fun onNext(resp: RepairTaskResponse?) {
+                    when (resp!!.frameType) {
+                        RepairTaskResponse.FrameType.RESULT -> {
+                            window.appendText(resp.message)
+                            results = resp.resultList
+                        }
+                        RepairTaskResponse.FrameType.STDOUT -> {
+                            window.appendText(resp.message)
+                        }
+                        else -> {
+                            throw RuntimeException("Unreachable")
+                        }
                     }
-                    RepairTaskResponse.FrameType.STDOUT -> {
-                        window.appendText(resp.message)
-                    }
-                    else -> {
-                        throw RuntimeException("Unreachable")
-                    }
+                }
+
+                override fun onError(p0: Throwable?) {
+                    err = p0
+                    done = true
+                }
+
+                override fun onCompleted() {
+                    done = true
                 }
             }
 
+            val task = Task()
+            val streaming = grpcStub.submitTask(task)
+            when (builder.locationType) {
+                RepairTaskRequest.LocationType.PATH -> {
+                    val request = builder.build()
+                    window.appendText("\nRequesting with args $request\n")
+                    streaming.onNext(request)
+                }
+                RepairTaskRequest.LocationType.ZIP -> {
+                    val request = builder.build()
+                    window.appendText("\nRequesting with args $request\n")
+
+                    val out = ByteArrayOutputStream()
+                    val files = ArrayList<File>()
+                    includeFiles(File(projectBase), files)
+                    ZipManager.zip(File(projectBase), files, out)
+
+                    val chunkSize = 1024 * 512
+                    val maxIteration = ceil(out.size().toDouble() / chunkSize.toDouble()).toInt()
+                    val bytes = ByteString.copyFrom(out.toByteArray())
+                    for (i in 0 until maxIteration) {
+                        builder.contentContinue = i != maxIteration - 1
+                        builder.content = bytes.substring(i * chunkSize, min(bytes.size(), (i + 1) * chunkSize))
+                        streaming.onNext(builder.build())
+                    }
+
+                }
+                else -> {
+                    throw RuntimeException("Unreachable")
+                }
+            }
+
+            streaming.onCompleted()
+            while (!task.done) {
+                Thread.sleep(100)
+            }
             lastResults = results
-            window.appendText("Astor results: $results\n")
-            if (results == null) {
+            window.appendText("Astor results: $lastResults\n")
+            if (lastResults == null) {
                 AstorNotification.getNotificationGroup()
                     .createNotification(
                         "Astor execution finished without result response",
@@ -96,11 +142,12 @@ class AstorProjectService(val project: Project) {
                     )
                     .notify(project)
             } else {
-                if (results.find { x -> x.success } != null) {
+                val lastResults = lastResults!!
+                if (lastResults.find { x -> x.success } != null) {
                     AstorNotification.getNotificationGroup()
                         .createNotification("Astor execution finished with solutions", NotificationType.INFORMATION)
                         .notify(project)
-                } else if (results.isNotEmpty()) {
+                } else if (lastResults.isNotEmpty()) {
                     AstorNotification.getNotificationGroup()
                         .createNotification(
                             "Astor could not find solutions",
@@ -126,5 +173,7 @@ class AstorProjectService(val project: Project) {
             logger.error(ex)
         }
         return null
+
+
     }
 }

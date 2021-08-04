@@ -59,4 +59,10 @@ public interface RepairTaskRequestOrBuilder extends
    * @return The content.
    */
   com.google.protobuf.ByteString getContent();
+
+  /**
+   * <code>bool content_continue = 6;</code>
+   * @return The contentContinue.
+   */
+  boolean getContentContinue();
 }

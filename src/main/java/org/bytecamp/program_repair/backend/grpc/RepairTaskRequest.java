@@ -82,6 +82,11 @@ private static final long serialVersionUID = 0L;
             content_ = input.readBytes();
             break;
           }
+          case 48: {
+
+            contentContinue_ = input.readBool();
+            break;
+          }
           default: {
             if (!parseUnknownField(
                 input, unknownFields, extensionRegistry, tag)) {
@@ -375,6 +380,17 @@ private static final long serialVersionUID = 0L;
     return content_;
   }
 
+  public static final int CONTENT_CONTINUE_FIELD_NUMBER = 6;
+  private boolean contentContinue_;
+  /**
+   * <code>bool content_continue = 6;</code>
+   * @return The contentContinue.
+   */
+  @Override
+  public boolean getContentContinue() {
+    return contentContinue_;
+  }
+
   private byte memoizedIsInitialized = -1;
   @Override
   public final boolean isInitialized() {
@@ -404,6 +420,9 @@ private static final long serialVersionUID = 0L;
     if (!content_.isEmpty()) {
       output.writeBytes(5, content_);
     }
+    if (contentContinue_ != false) {
+      output.writeBool(6, contentContinue_);
+    }
     unknownFields.writeTo(output);
   }
 
@@ -430,6 +449,10 @@ private static final long serialVersionUID = 0L;
       size += com.google.protobuf.CodedOutputStream
         .computeBytesSize(5, content_);
     }
+    if (contentContinue_ != false) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeBoolSize(6, contentContinue_);
+    }
     size += unknownFields.getSerializedSize();
     memoizedSize = size;
     return size;
@@ -454,6 +477,8 @@ private static final long serialVersionUID = 0L;
         .equals(other.getAlgorithm())) return false;
     if (!getContent()
         .equals(other.getContent())) return false;
+    if (getContentContinue()
+        != other.getContentContinue()) return false;
     if (!unknownFields.equals(other.unknownFields)) return false;
     return true;
   }
@@ -475,6 +500,9 @@ private static final long serialVersionUID = 0L;
     hash = (53 * hash) + getAlgorithm().hashCode();
     hash = (37 * hash) + CONTENT_FIELD_NUMBER;
     hash = (53 * hash) + getContent().hashCode();
+    hash = (37 * hash) + CONTENT_CONTINUE_FIELD_NUMBER;
+    hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+        getContentContinue());
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -618,6 +646,8 @@ private static final long serialVersionUID = 0L;
 
       content_ = com.google.protobuf.ByteString.EMPTY;
 
+      contentContinue_ = false;
+
       return this;
     }
 
@@ -649,6 +679,7 @@ private static final long serialVersionUID = 0L;
       result.project_ = project_;
       result.algorithm_ = algorithm_;
       result.content_ = content_;
+      result.contentContinue_ = contentContinue_;
       onBuilt();
       return result;
     }
@@ -714,6 +745,9 @@ private static final long serialVersionUID = 0L;
       }
       if (other.getContent() != com.google.protobuf.ByteString.EMPTY) {
         setContent(other.getContent());
+      }
+      if (other.getContentContinue() != false) {
+        setContentContinue(other.getContentContinue());
       }
       this.mergeUnknownFields(other.unknownFields);
       onChanged();
@@ -1056,6 +1090,37 @@ private static final long serialVersionUID = 0L;
     public Builder clearContent() {
       
       content_ = getDefaultInstance().getContent();
+      onChanged();
+      return this;
+    }
+
+    private boolean contentContinue_ ;
+    /**
+     * <code>bool content_continue = 6;</code>
+     * @return The contentContinue.
+     */
+    @Override
+    public boolean getContentContinue() {
+      return contentContinue_;
+    }
+    /**
+     * <code>bool content_continue = 6;</code>
+     * @param value The contentContinue to set.
+     * @return This builder for chaining.
+     */
+    public Builder setContentContinue(boolean value) {
+      
+      contentContinue_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>bool content_continue = 6;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearContentContinue() {
+      
+      contentContinue_ = false;
       onChanged();
       return this;
     }

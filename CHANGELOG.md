@@ -3,6 +3,9 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.6]
+- Large zip file support
+
 ## [0.3.5]
 - Zip project
 - Disable line wrap

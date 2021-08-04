@@ -43,23 +43,23 @@ public final class RepairServerProto {
       descriptor;
   static {
     String[] descriptorData = {
-      "\n\rservice.proto\"\276\001\n\021RepairTaskRequest\0226\n" +
+      "\n\rservice.proto\"\330\001\n\021RepairTaskRequest\0226\n" +
       "\rlocation_type\030\001 \001(\0162\037.RepairTaskRequest" +
       ".LocationType\022\020\n\010location\030\002 \001(\t\022\017\n\007proje" +
       "ct\030\003 \001(\t\022\021\n\talgorithm\030\004 \001(\t\022\017\n\007content\030\005" +
-      " \001(\014\"*\n\014LocationType\022\010\n\004PATH\020\000\022\007\n\003GIT\020\001\022" +
-      "\007\n\003ZIP\020\002\"\240\001\n\022RepairTaskResponse\0221\n\nframe" +
-      "_type\030\001 \001(\0162\035.RepairTaskResponse.FrameTy" +
-      "pe\022\017\n\007message\030\002 \001(\t\022!\n\006result\030\003 \003(\0132\021.Re" +
-      "pairTaskResult\"#\n\tFrameType\022\n\n\006STDOUT\020\000\022" +
-      "\n\n\006RESULT\020\001\"{\n\020RepairTaskResult\022\017\n\007succe" +
-      "ss\030\001 \001(\010\022&\n\005patch\030\003 \003(\0132\027.RepairTaskResu" +
-      "lt.Patch\032.\n\005Patch\022\020\n\010modified\030\002 \001(\t\022\023\n\013s" +
-      "ource_path\030\003 \001(\t2I\n\014RepairServer\0229\n\nSubm" +
-      "itTask\022\022.RepairTaskRequest\032\023.RepairTaskR" +
-      "esponse\"\0000\001B?\n(org.bytecamp.program_repa" +
-      "ir.backend.grpcB\021RepairServerProtoP\001b\006pr" +
-      "oto3"
+      " \001(\014\022\030\n\020content_continue\030\006 \001(\010\"*\n\014Locati" +
+      "onType\022\010\n\004PATH\020\000\022\007\n\003GIT\020\001\022\007\n\003ZIP\020\002\"\240\001\n\022R" +
+      "epairTaskResponse\0221\n\nframe_type\030\001 \001(\0162\035." +
+      "RepairTaskResponse.FrameType\022\017\n\007message\030" +
+      "\002 \001(\t\022!\n\006result\030\003 \003(\0132\021.RepairTaskResult" +
+      "\"#\n\tFrameType\022\n\n\006STDOUT\020\000\022\n\n\006RESULT\020\001\"{\n" +
+      "\020RepairTaskResult\022\017\n\007success\030\001 \001(\010\022&\n\005pa" +
+      "tch\030\003 \003(\0132\027.RepairTaskResult.Patch\032.\n\005Pa" +
+      "tch\022\020\n\010modified\030\002 \001(\t\022\023\n\013source_path\030\003 \001" +
+      "(\t2K\n\014RepairServer\022;\n\nSubmitTask\022\022.Repai" +
+      "rTaskRequest\032\023.RepairTaskResponse\"\000(\0010\001B" +
+      "?\n(org.bytecamp.program_repair.backend.g" +
+      "rpcB\021RepairServerProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -70,7 +70,7 @@ public final class RepairServerProto {
     internal_static_RepairTaskRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_RepairTaskRequest_descriptor,
-        new String[] { "LocationType", "Location", "Project", "Algorithm", "Content", });
+        new String[] { "LocationType", "Location", "Project", "Algorithm", "Content", "ContentContinue", });
     internal_static_RepairTaskResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_RepairTaskResponse_fieldAccessorTable = new
