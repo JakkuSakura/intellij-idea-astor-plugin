@@ -18,7 +18,7 @@ class AstorExecuteAstorAction : AnAction() {
         val service = project.service<AstorProjectService>()
         thread {
             val patches = service.execute()
-            if (patches != null) {
+            if (patches != null && patches.isNotEmpty() && patches[0].success) {
                 runWriteCommandAction(project) {
                     AstorDiff.showDiff(project, patches[0].patchList)
                 }
