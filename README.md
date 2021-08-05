@@ -2,7 +2,7 @@
 
 
 <!-- Plugin description -->
-**IntelliJ Idea Astor Plugin** is a plugin that integrates `Astor` in Intellij Idea. It communicates with a local/remote program repair backend with gRPC framework. The first 
+**IntelliJ Idea Astor Plugin** is a plugin that integrates `Astor` in Intellij Idea. It communicates with a local/remote program repair backend with gRPC framework. 
 
 <!-- Plugin description end -->
 

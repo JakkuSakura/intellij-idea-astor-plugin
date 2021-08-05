@@ -3,6 +3,10 @@
 # IntelliJ Idea Astor Plugin ChangeLog
 
 ## [Unreleased]
+## [0.3.7]
+- Resolve lagging
+- Colorful logging
+
 ## [0.3.6]
 - Large zip file support
 
