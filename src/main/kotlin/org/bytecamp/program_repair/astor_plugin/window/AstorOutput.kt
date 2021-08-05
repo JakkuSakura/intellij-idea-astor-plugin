@@ -17,8 +17,6 @@ import java.awt.Color
 class AstorOutput : JPanel() {
     var text = JTextPane()
     var jsp = com.intellij.ui.components.JBScrollPane(text)
-    val sc = StyleContext.getDefaultStyleContext()
-    val style = sc.addStyle("font folor", null)
 
     init {
         layout = BorderLayout()
@@ -33,20 +31,33 @@ class AstorOutput : JPanel() {
     }
 
     fun appendText(str: String) {
-//        println(str)
-        val document = text.document
-        val items = str.split(' ')
-        for (item in items) {
-            var c: Color
-            when (item) {
-                "DEBUG" -> c = Color.BLUE
-                "INFO" -> c = Color.GREEN
-                "ERROR" -> c = Color.RED
-                else -> c = Color.WHITE
+        try {
+            val document = text.document
+            val lines = str.split("\n")
+            for (line in lines) {
+                var c: Color = Color.LIGHT_GRAY
+                if (line.indexOf("INFO") != -1)
+                    c = Color.GREEN
+                if (line.indexOf("DEBUG") != -1)
+                    c = Color.GRAY
+                if (line.indexOf("WARN") != -1)
+                    c = Color.ORANGE
+                if (line.indexOf("ERROR") != -1)
+                    c = Color.RED
+
+                val sc = StyleContext.getDefaultStyleContext()
+                val style = sc.addStyle("font folor", null)
+                StyleConstants.setForeground(style, c)
+                document.insertString(document.length, line, style)
+                document.insertString(document.length, "\n", style)
             }
-            StyleConstants.setForeground(style, c)
-            document.insertString(document.length, item + " ", style)
+            if (document.length > 20000) {
+                document.remove(0, 10000)
+            }
             text.caretPosition = document.length
+
+        } catch (thr: Throwable) {
+            thr.printStackTrace()
         }
 
     }

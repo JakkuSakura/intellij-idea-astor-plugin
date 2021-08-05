@@ -18,6 +18,7 @@ import org.bytecamp.program_repair.backend.grpc.RepairTaskResponse
 import org.bytecamp.program_repair.backend.grpc.RepairTaskResult
 import java.io.ByteArrayOutputStream
 import java.io.File
+import java.util.concurrent.TimeUnit
 import kotlin.math.ceil
 import kotlin.math.min
 
@@ -41,13 +42,14 @@ class AstorProjectService(val project: Project) {
 
         window.clear()
         lastResults = null
+        var channel: ManagedChannel? = null
         try {
             val projectBase = project.basePath!!
             val settings = AppSettingsState.instance
             val spt = settings.backendAddress.split(":")
             val host = spt[0]
             val port = spt[1].toInt()
-            val channel: ManagedChannel = ManagedChannelBuilder.forAddress(host, port)
+            channel = ManagedChannelBuilder.forAddress(host, port)
                 .usePlaintext()
                 .build()
 
@@ -171,6 +173,9 @@ class AstorProjectService(val project: Project) {
                 .createNotification("Astor execution error: $ex", NotificationType.ERROR)
                 .notify(project)
             logger.error(ex)
+        } finally {
+            channel?.shutdownNow()
+            channel?.awaitTermination(100, TimeUnit.MILLISECONDS)
         }
         return null
 
