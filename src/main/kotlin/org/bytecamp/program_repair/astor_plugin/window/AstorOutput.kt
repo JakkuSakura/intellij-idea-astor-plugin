@@ -33,17 +33,21 @@ class AstorOutput : JPanel() {
     }
 
     fun appendText(str: String) {
-        println(str)
+//        println(str)
         val document = text.document
-        var c: Color
-        when (str) {
-            "DEBUG" -> c = Color.BLUE
-            "INFO" -> c = Color.GREEN
-            "ERROR" -> c = Color.RED
-            else -> c = Color.WHITE
+        val items = str.split(' ')
+        for (item in items) {
+            var c: Color
+            when (item) {
+                "DEBUG" -> c = Color.BLUE
+                "INFO" -> c = Color.GREEN
+                "ERROR" -> c = Color.RED
+                else -> c = Color.WHITE
+            }
+            StyleConstants.setForeground(style, c)
+            document.insertString(document.length, item + " ", style)
+            text.caretPosition = document.length
         }
-        StyleConstants.setForeground(style, c)
-        document.insertString(document.length, str, style)
-        text.caretPosition = document.length
+
     }
 }
